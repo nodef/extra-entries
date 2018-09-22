@@ -1,6 +1,6 @@
 {
-  "name": "entries-extra",
-  "version": "0.2.2",
+  "name": "extra-entries",
+  "version": "0.0.1",
   "description": "Extra methods for entries.",
   "main": "index.js",
   "dependencies": {},
