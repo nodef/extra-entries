@@ -1,5 +1,6 @@
 # entries-extra
 
+> [entries-extra](https://www.npmjs.com/package/entries-extra) was renamed to [extra-entries](https://www.npmjs.com/package/extra-entries).
 [![NPM](https://nodei.co/npm/entries-extra.png)](https://nodei.co/npm/entries-extra/)
 
 Extra methods for [entries].<br>
