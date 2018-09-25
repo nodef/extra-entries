@@ -1,6 +1,6 @@
 {
   "name": "extra-entries",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Extra methods for entries.",
   "main": "index.js",
   "dependencies": {},
@@ -14,7 +14,7 @@
     "@extra-entries/find-key": "^1.0.1",
     "@extra-entries/for-each": "^1.0.1",
     "@extra-entries/includes": "^1.0.1",
-    "@extra-entries/is": "^1.0.1",
+    "@extra-entries/is": "^1.0.2",
     "@extra-entries/join": "^1.0.1",
     "@extra-entries/key-of": "^1.0.1",
     "@extra-entries/keys": "^1.0.1",
@@ -25,8 +25,8 @@
     "@extra-entries/values": "^1.0.1",
     "@extra-iterable/concat": "^1.0.1",
     "@extra-iterable/first": "^1.0.1",
-    "@extra-iterable/last": "^1.0.1",
-    "@extra-iterable/middle": "^1.0.1",
+    "@extra-iterable/last": "^1.0.2",
+    "@extra-iterable/middle": "^1.0.2",
     "@extra-iterable/size": "^1.0.1"
   },
   "scripts": {
