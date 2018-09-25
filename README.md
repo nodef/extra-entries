@@ -1,51 +1,46 @@
-# entries-extra
-
-> [entries-extra](https://www.npmjs.com/package/entries-extra) was renamed to [extra-entries](https://www.npmjs.com/package/extra-entries).
-[![NPM](https://nodei.co/npm/entries-extra.png)](https://nodei.co/npm/entries-extra/)
-
 Extra methods for [entries].<br>
-Browserified, minified module: [entries-extra.min].
+Browserified, minified module: [extra-entries.min].
 
 ```javascript
-const extra = require('entries-extra');
+const extra = require('extra-entries');
 // extra.is(<value>)
 // extra.equal(<entries1>, <entries2>)
 // ...
 ```
 
 Datatype methods:
-- [is](https://www.npmjs.com/package/entries-is)
+- [is](https://www.npmjs.com/package/@extra-entries/is)
 
 About methods:
-- [equal](https://www.npmjs.com/package/entries-equal)
-- [size](https://www.npmjs.com/package/iterable-size)
-- [first](https://www.npmjs.com/package/iterable-first)
-- [middle](https://www.npmjs.com/package/iterable-middle)
-- [last](https://www.npmjs.com/package/iterable-last)
-- [keys](https://www.npmjs.com/package/entries-keys)
-- [values](https://www.npmjs.com/package/entries-values)
+- [equal](https://www.npmjs.com/package/@extra-entries/equal)
+- [size](https://www.npmjs.com/package/@extra-iterable/size)
+- [first](https://www.npmjs.com/package/@extra-iterable/first)
+- [middle](https://www.npmjs.com/package/@extra-iterable/middle)
+- [last](https://www.npmjs.com/package/@extra-iterable/last)
+- [keys](https://www.npmjs.com/package/@extra-entries/keys)
+- [values](https://www.npmjs.com/package/@extra-entries/values)
 
 Search methods:
-- [keyOf](https://www.npmjs.com/package/entries-keyof)
-- [keysOf](https://www.npmjs.com/package/entries-keysof)
-- [includes](https://www.npmjs.com/package/entries-includes)
+- [keyOf](https://www.npmjs.com/package/@extra-entries/key-of)
+- [keysOf](https://www.npmjs.com/package/@extra-entries/keys-of)
+- [includes](https://www.npmjs.com/package/@extra-entries/includes)
 
 Transform methods:
-- [join](https://www.npmjs.com/package/entries-join)
-- [concat](https://www.npmjs.com/package/iterable-concat)
+- [join](https://www.npmjs.com/package/@extra-entries/join)
+- [concat](https://www.npmjs.com/package/@extra-iterable/concat)
 
 Functional methods:
-- [forEach](https://www.npmjs.com/package/entries-foreach)
-- [some](https://www.npmjs.com/package/entries-some)
-- [every](https://www.npmjs.com/package/entries-every)
-- [find](https://www.npmjs.com/package/entries-find)
-- [findKey](https://www.npmjs.com/package/entries-findkey)
-- [findAll](https://www.npmjs.com/package/entries-findall)
-- [findAllKeys](https://www.npmjs.com/package/entries-findallkeys)
-- [reduce](https://www.npmjs.com/package/entries-reduce)
-- [filter](https://www.npmjs.com/package/entries-filter)
-- [map](https://www.npmjs.com/package/entries-map)
+- [forEach](https://www.npmjs.com/package/@extra-entries/for-each)
+- [some](https://www.npmjs.com/package/@extra-entries/some)
+- [every](https://www.npmjs.com/package/@extra-entries/every)
+- [find](https://www.npmjs.com/package/@extra-entries/find)
+- [findKey](https://www.npmjs.com/package/@extra-entries/find-key)
+- [findAll](https://www.npmjs.com/package/@extra-entries/find-all)
+- [findAllKeys](https://www.npmjs.com/package/@extra-entries/find-all-keys)
+- [reduce](https://www.npmjs.com/package/@extra-entries/reduce)
+- [filter](https://www.npmjs.com/package/@extra-entries/filter)
+- [map](https://www.npmjs.com/package/@extra-entries/map)
 
 
 [entries]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries
-[entries-extra.min]: https://www.npmjs.com/package/entries-extra.min
+[extra-entries.min]: https://www.npmjs.com/package/extra-entries.min
