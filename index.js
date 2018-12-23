@@ -1,9 +1,9 @@
 function is(v) {
   return v!=null && typeof v[Symbol.iterator]==='function';
 }
-const iterable = is1;
-function is1(a) {
-  if(!iterable(a)) return false;
+const isIterable = is;
+function isEntries(a) {
+  if(!isIterable(a)) return false;
   for(var v of a)
     if(!Array.isArray(v)) return false;
   return true;
@@ -192,7 +192,7 @@ function map(ent, fn, ths, bgn=0, end=Number.MAX_SAFE_INTEGER, z=[], z0=z.length
   return z;
 }
 // Datatype methods:
-exports.is = is1;
+exports.is = isEntries;
 
 // About methods:
 exports.equal = equal;
