@@ -1,50 +1,45 @@
 {
   "name": "extra-entries",
-  "version": "0.2.8",
-  "description": "Extra methods for entries.",
+  "version": "1.0.3",
+  "description": "Standard utility methods for Entries.",
   "main": "index.js",
-  "dependencies": {},
-  "devDependencies": {
-    "@extra-entries/equal": "^1.0.1",
-    "@extra-entries/every": "^1.0.1",
-    "@extra-entries/filter": "^1.0.1",
-    "@extra-entries/find": "^1.0.1",
-    "@extra-entries/find-all": "^1.0.1",
-    "@extra-entries/find-all-keys": "^1.0.1",
-    "@extra-entries/find-key": "^1.0.1",
-    "@extra-entries/for-each": "^1.0.1",
-    "@extra-entries/includes": "^1.0.1",
-    "@extra-entries/is": "^1.0.2",
-    "@extra-entries/join": "^1.0.1",
-    "@extra-entries/key-of": "^1.0.1",
-    "@extra-entries/keys": "^1.0.1",
-    "@extra-entries/keys-of": "^1.0.1",
-    "@extra-entries/map": "^1.0.1",
-    "@extra-entries/reduce": "^1.0.1",
-    "@extra-entries/some": "^1.0.1",
-    "@extra-entries/values": "^1.0.1",
-    "@extra-iterable/concat": "^1.0.1",
-    "@extra-iterable/first": "^1.0.1",
-    "@extra-iterable/last": "^1.0.2",
-    "@extra-iterable/middle": "^1.0.2",
-    "@extra-iterable/size": "^1.0.1"
-  },
   "scripts": {
+    "prepublishOnly": "node ./prepublish",
+    "browserify": "browserify index.js -o index.web.js -s Integer",
+    "uglifyjs": "uglifyjs -c -m -o index.min.js index.web.js",
     "test": "exit"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/extra-entries/extra-entries.git"
   },
   "keywords": [
     "extra",
     "entries",
+    "standard",
+    "utility",
+    "method",
+    "manipulation",
+    "function",
     "merferry"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodef/extra-entries.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nodef/extra-entries/issues"
+  },
+  "homepage": "https://github.com/nodef/extra-entries#readme",
   "author": "wolfram77@gmail.com",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/extra-entries/extra-entries/issues"
-  },
-  "homepage": "https://github.com/extra-entries/extra-entries#readme"
+  "devDependencies": {
+    "@extra-iterable/concat": "^1.1.0",
+    "@extra-iterable/first": "^1.1.0",
+    "@extra-iterable/is": "^1.1.0",
+    "@extra-iterable/last": "^1.1.0",
+    "@extra-iterable/middle": "^1.1.0",
+    "@extra-iterable/size": "^1.1.0",
+    "browserify": "^16.2.3",
+    "find-npm-prefix": "^1.0.2",
+    "recast": "^0.16.1",
+    "tempy": "^0.2.1",
+    "uglify-es": "^3.3.9"
+  }
 }
