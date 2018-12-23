@@ -1,10 +1,10 @@
-Extra methods for [entries].<br>
+Standard utility methods for [Entries].<br>
 Browserified, minified module: [extra-entries.min].
 
 ```javascript
-const extra = require('extra-entries');
-// extra.is(<value>)
-// extra.equal(<entries1>, <entries2>)
+const Entries = require('extra-entries');
+// Entries.is(<value>)
+// Entries.equal(<entries1>, <entries2>)
 // ...
 ```
 
@@ -40,7 +40,10 @@ Functional methods:
 - [reduce](https://www.npmjs.com/package/@extra-entries/reduce)
 - [filter](https://www.npmjs.com/package/@extra-entries/filter)
 - [map](https://www.npmjs.com/package/@extra-entries/map)
+<br>
 
 
-[entries]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries
+[![nodef](https://i.imgur.com/iICkjUV.jpg)](https://nodef.github.io)
+
+[Entries]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries
 [extra-entries.min]: https://www.npmjs.com/package/extra-entries.min
