@@ -1,11 +1,11 @@
 {
   "name": "extra-entries",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Standard utility methods for Entries.",
   "main": "index.js",
   "scripts": {
     "prepublishOnly": "node ./prepublish",
-    "browserify": "browserify index.js -o index.web.js -s Integer",
+    "browserify": "browserify index.js -o index.web.js -s Entries",
     "uglifyjs": "uglifyjs -c -m -o index.min.js index.web.js",
     "test": "exit"
   },
@@ -30,7 +30,7 @@
   "author": "wolfram77@gmail.com",
   "license": "MIT",
   "devDependencies": {
-    "@extra-iterable/concat": "^1.1.0",
+    "@extra-iterable/concat": "^1.1.1",
     "@extra-iterable/first": "^1.1.0",
     "@extra-iterable/is": "^1.1.0",
     "@extra-iterable/last": "^1.1.0",
