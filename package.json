@@ -1,6 +1,6 @@
 {
   "name": "extra-entries",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Standard utility methods for Entries.",
   "main": "index.js",
   "scripts": {
@@ -28,15 +28,15 @@
   "license": "MIT",
   "devDependencies": {
     "@extra-iterable/concat": "^1.1.1",
-    "@extra-iterable/first": "^1.1.0",
-    "@extra-iterable/is": "^1.1.0",
-    "@extra-iterable/last": "^1.1.0",
-    "@extra-iterable/middle": "^1.1.0",
-    "@extra-iterable/size": "^1.1.0",
-    "browserify": "^16.2.3",
+    "@extra-iterable/first": "^1.1.1",
+    "@extra-iterable/is": "^1.1.1",
+    "@extra-iterable/last": "^1.1.1",
+    "@extra-iterable/middle": "^1.1.1",
+    "@extra-iterable/size": "^1.1.1",
+    "browserify": "^16.5.0",
     "find-npm-prefix": "^1.0.2",
-    "recast": "^0.16.1",
-    "tempy": "^0.2.1",
+    "recast": "^0.18.7",
+    "tempy": "^0.5.0",
     "uglify-es": "^3.3.9"
   }
 }
