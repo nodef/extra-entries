@@ -1,6 +1,6 @@
 {
   "name": "extra-entries",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Standard utility methods for Entries.",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,13 @@
     "@extra-iterable/first": "^1.1.1",
     "@extra-iterable/is": "^1.1.1",
     "@extra-iterable/last": "^1.1.1",
+    "@extra-iterable/max": "^2.1.26",
+    "@extra-iterable/max-on": "^2.1.26",
     "@extra-iterable/middle": "^1.1.1",
+    "@extra-iterable/min": "^2.1.26",
+    "@extra-iterable/min-on": "^2.1.26",
+    "@extra-iterable/range": "^2.1.26",
+    "@extra-iterable/range-on": "^2.1.26",
     "@extra-iterable/size": "^1.1.1",
     "browserify": "^16.5.0",
     "find-npm-prefix": "^1.0.2",
