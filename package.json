@@ -1,11 +1,21 @@
 {
   "name": "extra-entries",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Standard utility methods for Entries.",
   "main": "index.js",
+  "module": "index.mjs",
+  "exports": {
+    "require": "./index.js",
+    "import": "./index.mjs"
+  },
   "scripts": {
+    "einit": "ebuild init",
+    "ecode": "ebuild update --docs false",
+    "eupdate": "ebuild update",
+    "escatter": "ebuild scatter",
     "test": "exit"
   },
+  "runkitExampleFilename": "example.js",
   "keywords": [
     "extra",
     "entries",
