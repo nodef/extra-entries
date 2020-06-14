@@ -1,7 +1,7 @@
 import type {testFn, Entries} from './_types';
 
 /**
- * Finds values passing the test.
+ * Finds values passing a test.
  * @param x entries
  * @param fn test function (v, k, x)
  * @param ths this argument
