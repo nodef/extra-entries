@@ -6,6 +6,6 @@ import type {Entries} from './_types';
  * @param x entries
  */
 function* tail<T, U>(x: Entries<T, U>): Entries<T, U> {
-  return drop(x, 1);
+  yield* drop(x, 1);
 }
 export default tail;
