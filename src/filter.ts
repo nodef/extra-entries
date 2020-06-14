@@ -1,12 +1,12 @@
-import type {testFn} from './_types';
+import type {testFn, Entries} from './_types';
 
 /**
- * Keeps pairs which pass a test.
+ * Keeps entries which pass the test.
  * @param x entries
  * @param fn test function (v, k, x)
  * @param ths this argument
  */
-function* filter<K, V>(x: Iterable<[K, V]>, fn: testFn<K, V>, ths: object=null): IterableIterator<[K, V]> {
+function* filter<T, U>(x: Entries<T, U>, fn: testFn<T, U>, ths: object=null): Entries<T, U> {
   for(var [k, v] of x)
     if(fn.call(ths, v, k, x)) yield [k, v];
 }
