@@ -1,6 +1,6 @@
 {
   "name": "extra-entries",
-  "version": "2.0.32",
+  "version": "2.0.33",
   "description": "Standard utility methods for Entries.",
   "main": "index.js",
   "module": "index.mjs",
@@ -32,6 +32,7 @@
   "license": "MIT",
   "devDependencies": {
     "extra-array": "^2.8.75",
-    "extra-build": "^1.0.177"
+    "extra-build": "^1.0.177",
+    "extra-iterable": "^2.3.43"
   }
 }
