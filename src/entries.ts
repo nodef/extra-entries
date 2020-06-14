@@ -1,8 +1,10 @@
+import type {Entries} from './_types';
+
 /**
- * Lists all pairs.
- * @param x entries
+ * Lists all key-value pairs.
+ * @param x a map
  */
-function* entries<K, V>(x: Iterable<[K, V]>): IterableIterator<[K, V]> {
+function* entries<T, U>(x: Entries<T, U>): IterableIterator<[T, U]> {
   yield* x;
 }
 export default entries;
