@@ -1,10 +1,12 @@
+import type {Entries} from './_types';
+
 /**
  * Sets value at key.
  * @param x entries
  * @param k key
  * @param v value
  */
-function* set<K, V>(x: Iterable<[K, V]>, k: K, v: V): IterableIterator<[K, V]> {
+function* set<T, U>(x: Entries<T, U>, k: T, v: U): Entries<T, U> {
   for(var [j, u] of x)
     yield j===k? [j, v] : [j, u];
 }
