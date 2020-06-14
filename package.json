@@ -1,6 +1,6 @@
 {
   "name": "extra-entries",
-  "version": "2.0.19",
+  "version": "2.0.20",
   "description": "Standard utility methods for Entries.",
   "main": "index.js",
   "module": "index.mjs",
