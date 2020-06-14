@@ -4,7 +4,7 @@ import type {compareFn, mapFn, Entries} from './_types';
 
 /**
  * Finds smallest and largest entries.
- * @param x a map
+ * @param x entries
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
  * @returns [smallest, largest]
