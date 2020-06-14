@@ -1,6 +1,6 @@
 {
   "name": "extra-entries",
-  "version": "2.0.13",
+  "version": "2.0.14",
   "description": "Standard utility methods for Entries.",
   "main": "index.js",
   "module": "index.mjs",
@@ -31,6 +31,7 @@
   "author": "wolfram77@gmail.com",
   "license": "MIT",
   "devDependencies": {
+    "extra-array": "^2.8.75",
     "extra-build": "^1.0.177"
   }
 }
