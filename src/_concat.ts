@@ -1,9 +1,15 @@
+import type {Entries} from './_types';
+
 /**
- * Appends entries together.
- * @param xs entries
+ * Combines multiple entries, preferring last.
+ * @param x entries
+ * @param ys other entries
  */
-function* concat<K, V>(...xs: Iterable<[K, V]>[]): IterableIterator<[K, V]> {
-  for(var x of xs)
-    yield* x;
+function* concat<T, U>(...xs: Entries<T, U>[]): Entries<T, U> {
+  for(var y of ys) {
+    for(var [k, v] of y)
+      x.set(k, v);
+  }
+  return x;
 }
 export default concat;
