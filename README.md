@@ -1,4 +1,4 @@
-Standard utility methods for [Entries].<br>
+Standard utility methods for [Entries]. [:running:] [:vhs:] [:package:] [:moon:] [:ledger:]
 Browserified, minified module: [extra-entries.min].
 
 ```javascript
@@ -47,3 +47,8 @@ Functional methods:
 
 [Entries]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries
 [extra-entries.min]: https://www.npmjs.com/package/extra-entries.min
+[:running:]: https://npm.runkit.com/extra-entries
+[:vhs:]: https://asciinema.org/a/340296
+[:package:]: https://www.npmjs.com/package/extra-entries
+[:moon:]: https://www.npmjs.com/package/extra-entries.min
+[:ledger:]: https://unpkg.com/extra-entries/
