@@ -1,17 +1,3 @@
-// Datatype methods:
-
-// About methods:
-exports.size = require('@extra-iterable/size');
-exports.first = require('@extra-iterable/first');
-exports.middle = require('@extra-iterable/middle');
-exports.last = require('@extra-iterable/last');
-
-// Search methods:
-
-// Transform methods:
-exports.concat = require('@extra-iterable/concat');
-
-// Functional methods:
 export {default as cartesianProduct} from './cartesianProduct';
 export {default as chunk} from './chunk';
 export {default as count} from './count';
