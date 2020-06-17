@@ -1,17 +1,13 @@
+import {chunk as mapChunk} from 'extra-map';
+import type {Entries} from './_types';
+
 /**
  * Breaks entries into chunks of given size.
  * @param x entries
  * @param n chunk size (1)
+ * @param s chunk step (n)
  */
-function* chunk<K, V>(x: Iterable<[K, V]>, n: number=1): Iterable<Array<[K, V]>> {
-  var a: Array<[K, V]> = [], m = n;
-  for(var e of x) {
-    a.push(e);
-    if(--m>0) continue;
-    yield a;
-    a = [e];
-    m = n;
-  }
-  if(a.length) yield a;
+function chunk<T, U>(x: Entries<T, U>, n: number=1, s: number=n): Entries<T, U>[] {
+  return mapChunk(new Map(x), n, s);
 }
 export default chunk;
