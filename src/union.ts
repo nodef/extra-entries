@@ -7,7 +7,7 @@ import type {combineFn, Entries} from './_types';
  * @param y another entries
  * @param fn combine function (a, b)
  */
-function union<T, U>(x: Entries<T, U>, y: Entries<T, U>, fn: combineFn<U>=null): Map<T, U> {
+function union<T, U>(x: Entries<T, U>, y: Entries<T, U>, fn: combineFn<U>=null): Entries<T, U> {
   var fn = fn||id;
   var a = new Map(x);
   for(var [k, v] of y) {
