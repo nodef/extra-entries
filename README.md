@@ -106,7 +106,6 @@ var x = [['a', 1], ['b', 2], ['c', 3]];
 [:package:]: https://www.npmjs.com/package/extra-entries
 [:moon:]: https://www.npmjs.com/package/extra-entries.min
 [:ledger:]: https://unpkg.com/extra-entries/
-[:vhs:]: https://asciinema.org/a/340339
 [is]: https://github.com/nodef/extra-entries/wiki/is
 [get]: https://github.com/nodef/extra-entries/wiki/get
 [set]: https://github.com/nodef/extra-entries/wiki/set
@@ -145,3 +144,4 @@ var x = [['a', 1], ['b', 2], ['c', 3]];
 [find]: https://github.com/nodef/extra-entries/wiki/find
 [search]: https://github.com/nodef/extra-entries/wiki/search
 [scanWhile]: https://github.com/nodef/extra-entries/wiki/scanWhile
+[:vhs:]: https://asciinema.org/a/340409
