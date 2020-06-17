@@ -1,4 +1,4 @@
-import id from './_id';
+import {union as mapUnion} from 'extra-map';
 import type {combineFn, Entries} from './_types';
 
 /**
@@ -8,12 +8,6 @@ import type {combineFn, Entries} from './_types';
  * @param fn combine function (a, b)
  */
 function union<T, U>(x: Entries<T, U>, y: Entries<T, U>, fn: combineFn<U>=null): Entries<T, U> {
-  var fn = fn||id;
-  var a = new Map(x);
-  for(var [k, v] of y) {
-    if(!a.has(k)) a.set(k, v);
-    else a.set(k, fn(a.get(k), v));
-  }
-  return a;
+  return mapUnion(x, y, fn);
 }
 export default union;

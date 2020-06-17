@@ -5,7 +5,7 @@ import type {Entries} from './_types';
  * @param x entries
  * @param y another entries
  */
-function symmetricDifference<T, U>(x: Entries<T, U>, y: Entries<T, U>): Map<T, U> {
+function symmetricDifference<T, U>(x: Entries<T, U>, y: Entries<T, U>): Entries<T, U> {
   var a = new Map(x);
   for(var [k, v] of y) {
     if(a.has(k)) a.delete(k);

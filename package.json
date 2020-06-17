@@ -1,6 +1,6 @@
 {
   "name": "extra-entries",
-  "version": "2.0.65",
+  "version": "2.0.66",
   "description": "Standard utility methods for Entries.",
   "main": "index.js",
   "module": "index.mjs",
@@ -34,6 +34,7 @@
     "extra-array": "^2.9.9",
     "extra-build": "^1.0.180",
     "extra-iterable": "^2.4.29",
+    "extra-map": "^2.1.9",
     "extra-set": "^2.1.53"
   }
 }
