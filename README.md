@@ -48,22 +48,22 @@ var x = [['a', 1], ['b', 2], ['c', 3]];
 
 | Method                | Action
 |-----------------------|-------
-| [is]                  | Checks if value is map.
+| [is]                  | Checks if value is entries.
 | [get]                 | Gets value at key.
 | [set]                 | Sets value at key.
 | [remove]              | Deletes an entry.
 | [swap]                | Exchanges two values.
-| [size]                | Gets size of map.
+| [size]                | Gets size of entries.
 |                       | 
 | [head]                | Gets first entry.
 | [take]                | Keeps first n entries only.
 | [shift]               | Removes first entry.
-| [fromLists]           | Creates object from entries.
+| [fromLists]           | Creates entries from lists.
 |                       | 
 | [concat]              | Appends entries from maps, preferring last.
-| [flat]                | Flattens nested map to given depth.
-| [chunk]               | Breaks map into chunks of given size.
-| [filterAt]            | Gets map with given keys.
+| [flat]                | Flattens nested entries to given depth.
+| [chunk]               | Breaks entries into chunks of given size.
+| [filterAt]            | Gets entries with given keys.
 |                       | 
 | [map]                 | Updates values based on map function.
 | [filter]              | Keeps entries which pass a test.
@@ -71,24 +71,24 @@ var x = [['a', 1], ['b', 2], ['c', 3]];
 | [range]               | Finds smallest and largest entries.
 | [count]               | Counts values which satisfy a test.
 | [partition]           | Segregates values by test result.
-| [cartesianProduct]    | Lists cartesian product of maps.
+| [cartesianProduct]    | Lists cartesian product of entries.
 | [some]                | Checks if any value satisfies a test.
 | [zip]                 | Combines matching entries from maps.
 |                       | 
-| [union]               | Gives entries present in any map.
-| [intersection]        | Gives entries present in both maps.
-| [difference]          | Gives entries of map not present in another.
-| [symmetricDifference] | Gives entries not present in both maps.
-| [isDisjoint]          | Checks if maps have no common keys.
+| [union]               | Gives entries present in any entries.
+| [intersection]        | Gives entries present in both entries.
+| [difference]          | Gives entries not present in another.
+| [symmetricDifference] | Gives entries not present in both entries.
+| [isDisjoint]          | Checks if entries have no common keys.
 |                       | 
 | [key]                 | Picks an arbitrary key.
 | [value]               | Picks an arbitrary value.
 | [entry]               | Picks an arbitrary entry.
-| [submap]              | Picks an arbitrary submap.
+| [submap]              | Gives an arbitrary submap.
 |                       | 
-| [isEmpty]             | Checks if map is empty.
+| [isEmpty]             | Checks if entries is empty.
 | [isEqual]             | Checks if two maps are equal.
-| [compare]             | Compares two maps.
+| [compare]             | Compares two entries.
 | [find]                | Finds a value passing a test.
 | [search]              | Finds key of an entry passing a test.
 | [scanWhile]           | Finds key of first entry not passing a test.
@@ -107,3 +107,41 @@ var x = [['a', 1], ['b', 2], ['c', 3]];
 [:moon:]: https://www.npmjs.com/package/extra-entries.min
 [:ledger:]: https://unpkg.com/extra-entries/
 [:vhs:]: https://asciinema.org/a/340339
+[is]: https://github.com/nodef/extra-entries/wiki/is
+[get]: https://github.com/nodef/extra-entries/wiki/get
+[set]: https://github.com/nodef/extra-entries/wiki/set
+[remove]: https://github.com/nodef/extra-entries/wiki/remove
+[swap]: https://github.com/nodef/extra-entries/wiki/swap
+[size]: https://github.com/nodef/extra-entries/wiki/size
+[head]: https://github.com/nodef/extra-entries/wiki/head
+[take]: https://github.com/nodef/extra-entries/wiki/take
+[shift]: https://github.com/nodef/extra-entries/wiki/shift
+[fromLists]: https://github.com/nodef/extra-entries/wiki/fromLists
+[concat]: https://github.com/nodef/extra-entries/wiki/concat
+[flat]: https://github.com/nodef/extra-entries/wiki/flat
+[chunk]: https://github.com/nodef/extra-entries/wiki/chunk
+[filterAt]: https://github.com/nodef/extra-entries/wiki/filterAt
+[map]: https://github.com/nodef/extra-entries/wiki/map
+[filter]: https://github.com/nodef/extra-entries/wiki/filter
+[reduce]: https://github.com/nodef/extra-entries/wiki/reduce
+[range]: https://github.com/nodef/extra-entries/wiki/range
+[count]: https://github.com/nodef/extra-entries/wiki/count
+[partition]: https://github.com/nodef/extra-entries/wiki/partition
+[cartesianProduct]: https://github.com/nodef/extra-entries/wiki/cartesianProduct
+[some]: https://github.com/nodef/extra-entries/wiki/some
+[zip]: https://github.com/nodef/extra-entries/wiki/zip
+[union]: https://github.com/nodef/extra-entries/wiki/union
+[intersection]: https://github.com/nodef/extra-entries/wiki/intersection
+[difference]: https://github.com/nodef/extra-entries/wiki/difference
+[symmetricDifference]: https://github.com/nodef/extra-entries/wiki/symmetricDifference
+[isDisjoint]: https://github.com/nodef/extra-entries/wiki/isDisjoint
+[key]: https://github.com/nodef/extra-entries/wiki/key
+[value]: https://github.com/nodef/extra-entries/wiki/value
+[entry]: https://github.com/nodef/extra-entries/wiki/entry
+[submap]: https://github.com/nodef/extra-entries/wiki/submap
+[isEmpty]: https://github.com/nodef/extra-entries/wiki/isEmpty
+[isEqual]: https://github.com/nodef/extra-entries/wiki/isEqual
+[compare]: https://github.com/nodef/extra-entries/wiki/compare
+[find]: https://github.com/nodef/extra-entries/wiki/find
+[search]: https://github.com/nodef/extra-entries/wiki/search
+[scanWhile]: https://github.com/nodef/extra-entries/wiki/scanWhile
