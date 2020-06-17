@@ -1,5 +1,6 @@
 export {default as cartesianProduct} from './cartesianProduct';
 export {default as chunk} from './chunk';
+export {default as compare} from './compare';
 export {default as concat} from './concat';
 export {default as count} from './count';
 export {default as countAs} from './countAs';
@@ -24,6 +25,7 @@ export {default as is} from './is';
 export {default as isDisjoint} from './isDisjoint';
 export {default as isEmpty} from './isEmpty';
 export {default as isEntry} from './isEntry';
+export {default as isEqual} from './isEqual';
 export {default as isKey} from './isKey';
 export {default as isSubmap} from './isSubmap';
 export {default as isValue} from './isValue';
