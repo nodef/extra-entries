@@ -6,7 +6,7 @@ import type {Entries} from './_types';
  * @param x a map
  * @param n number of entries (-1 => any)
  */
-function* submaps<T, U>(x: Entries<T, U>, n: number=-1): IterableIterator<Entries<T, U>> {
+function* submaps<T, U>(x: Entries<T, U>, n: number=-1): Iterable<Entries<T, U>> {
   yield* mapSubmaps(new Map(x), n);
 }
 export default submaps;

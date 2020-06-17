@@ -3,7 +3,7 @@
  * @param x entries
  * @param n chunk size (1)
  */
-function* chunk<K, V>(x: Iterable<[K, V]>, n: number=1): IterableIterator<Array<[K, V]>> {
+function* chunk<K, V>(x: Iterable<[K, V]>, n: number=1): Iterable<Array<[K, V]>> {
   var a: Array<[K, V]> = [], m = n;
   for(var e of x) {
     a.push(e);
