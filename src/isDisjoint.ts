@@ -1,4 +1,4 @@
-import keys from './keys';
+import {isDisjoint as mapIsDisjoint} from 'extra-map';
 import type {Entries} from './_types';
 
 /**
@@ -7,9 +7,6 @@ import type {Entries} from './_types';
  * @param y another entries
  */
 function isDisjoint<T, U>(x: Entries<T, U>, y: Entries<T, U>): boolean {
-  var ks = new Set(keys(x));
-  for(var [k] of y)
-    if(ks.has(k)) return false;
-  return true;
+  return mapIsDisjoint(new Map(x), y);
 }
 export default isDisjoint;
