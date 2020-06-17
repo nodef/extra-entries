@@ -6,7 +6,6 @@ export {default as count} from './count';
 export {default as countAs} from './countAs';
 export {default as difference} from './difference';
 export {default as drop} from './drop';
-export {default as entries} from './entries';
 export {default as entry} from './entry';
 export {default as every} from './every';
 export {default as filter} from './filter';
