@@ -1,6 +1,6 @@
 {
   "name": "extra-entries",
-  "version": "2.0.89",
+  "version": "2.0.90",
   "description": "Standard utility methods for Entries.",
   "main": "index.js",
   "module": "index.mjs",
@@ -20,6 +20,7 @@
     "extra",
     "cartesianProduct",
     "chunk",
+    "compare",
     "concat",
     "count",
     "countAs",
@@ -44,6 +45,7 @@
     "isDisjoint",
     "isEmpty",
     "isEntry",
+    "isEqual",
     "isKey",
     "isSubmap",
     "isValue",

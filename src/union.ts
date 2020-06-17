@@ -5,9 +5,9 @@ import type {combineFn, Entries} from './_types';
  * Gives entries present in any entries.
  * @param x entries
  * @param y another entries
- * @param fn combine function (a, b)
+ * @param fc combine function (a, b)
  */
-function union<T, U>(x: Entries<T, U>, y: Entries<T, U>, fn: combineFn<U>=null): Entries<T, U> {
-  return mapUnion(x, y, fn);
+function union<T, U>(x: Entries<T, U>, y: Entries<T, U>, fc: combineFn<U>=null): Entries<T, U> {
+  return mapUnion(x, y, fc);
 }
 export default union;

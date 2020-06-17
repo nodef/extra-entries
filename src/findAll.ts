@@ -4,9 +4,9 @@ import type {testFn, Entries} from './_types';
 /**
  * Finds values passing a test.
  * @param x entries
- * @param fn test function (v, k, x)
+ * @param ft test function (v, k, x)
  */
-function findAll<T, U>(x: Entries<T, U>, fn: testFn<T, U>): Iterable<U> {
-  return mapFindAll(x, fn);
+function findAll<T, U>(x: Entries<T, U>, ft: testFn<T, U>): Iterable<U> {
+  return mapFindAll(x, ft);
 }
 export default findAll;
