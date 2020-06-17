@@ -1,5 +1,6 @@
 import id from './_id';
 import cmp from './_cmp';
+import get from './get';
 import type {compareFn, mapFn, Entries} from './_types';
 
 /**
@@ -11,12 +12,9 @@ import type {compareFn, mapFn, Entries} from './_types';
  */
 function isEntry<T, U, V=U>(x: Entries<T, U>, e: [T, U], fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): boolean {
   var fc = fc||cmp, fm = fm||id;
-  var [k, v] = e, v1 = fm(v, k, null);
-  for(var [j, u] of x) {
-    if(j!==k) continue;
-    var u1 = fm(u, j, x);
-    return fc(u1, v1)===0;
-  }
-  return false;
+  var [k, v] = e, u = get(x, k);
+  var u1 = fm(u, k, x);
+  var v1 = fm(v, k, x);
+  return fc(u1, v1)===0;
 }
 export default isEntry;
