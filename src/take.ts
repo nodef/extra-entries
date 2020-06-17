@@ -1,3 +1,4 @@
+import {take as iterableTake} from 'extra-iterable';
 import type {Entries} from './_types';
 
 /**
@@ -6,10 +7,6 @@ import type {Entries} from './_types';
  * @param n number of entries (1)
  */
 function* take<T, U>(x: Entries<T, U>, n: number=1): Entries<T, U> {
-  var i = 0;
-  for(var [k, v] of x) {
-    if(i++>=n) break;
-    yield [k, v];
-  }
+  yield* iterableTake(x, n);
 }
 export default take;
