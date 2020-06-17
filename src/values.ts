@@ -5,7 +5,7 @@ import type {Entries} from './_types';
  * @param x entries
  */
 function* values<T, U>(x: Entries<T, U>): IterableIterator<U> {
-  for(var [k, v] of x)
+  for(var [,v] of x)
     yield v;
 }
 export default values;
