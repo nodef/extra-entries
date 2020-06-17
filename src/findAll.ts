@@ -1,13 +1,12 @@
+import {findAll as mapFindAll} from 'extra-map';
 import type {testFn, Entries} from './_types';
 
 /**
  * Finds values passing a test.
  * @param x entries
  * @param fn test function (v, k, x)
- * @param ths this argument
  */
-function* findAll<T, U>(x: Entries<T, U>, fn: testFn<T, U>, ths: object=null): Iterable<U> {
-  for(var [k, v] of x)
-    if(fn.call(ths, v, k, x)) yield v;
+function findAll<T, U>(x: Entries<T, U>, fn: testFn<T, U>): Iterable<U> {
+  return mapFindAll(x, fn);
 }
 export default findAll;

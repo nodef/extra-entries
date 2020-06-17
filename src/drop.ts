@@ -6,7 +6,7 @@ import type {Entries} from './_types';
  * @param x entries
  * @param n number of entries (1)
  */
-function* drop<T, U>(x: Entries<T, U>, n: number=1): Entries<T, U> {
-  yield* iterableDrop(x, n);
+function drop<T, U>(x: Entries<T, U>, n: number=1): Entries<T, U> {
+  return iterableDrop(x, n);
 }
 export default drop;

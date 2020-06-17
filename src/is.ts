@@ -1,8 +1,10 @@
+import {is as iterableIs} from 'extra-iterable';
+
 /**
  * Checks if value is entries.
  * @param v value
  */
 function is(v: any): boolean {
-  return v instanceof Map;
+  return iterableIs(v);
 }
 export default is;

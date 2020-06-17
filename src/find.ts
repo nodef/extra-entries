@@ -1,13 +1,12 @@
+import {find as mapFind} from 'extra-map';
 import type {testFn, Entries} from './_types';
 
 /**
  * Finds a value passing a test.
  * @param x entries
  * @param fn test function (v, k, x)
- * @param ths this argument
  */
-function find<T, U>(x: Entries<T, U>, fn: testFn<T, U>, ths: object=null): U {
-  for(var [k, v] of x)
-    if(fn.call(ths, v, k, x)) return v;
+function find<T, U>(x: Entries<T, U>, fn: testFn<T, U>): U {
+  return mapFind(x, fn);
 }
 export default find;
