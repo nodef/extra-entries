@@ -1,5 +1,4 @@
-import keys from './keys';
-import {concat} from 'extra-set';
+import {unionKeys as mapUnionKeys} from 'extra-map';
 import type {Entries} from './_types';
 
 /**
@@ -7,6 +6,6 @@ import type {Entries} from './_types';
  * @param xs n entries
  */
 function unionKeys<T, U>(...xs: Entries<T, U>[]): Set<T> {
-  return concat(...xs.map(keys));
+  return mapUnionKeys(...xs);
 }
 export default unionKeys;
