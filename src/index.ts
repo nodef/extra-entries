@@ -19,7 +19,6 @@ export {default as get} from './get';
 export {default as getAll} from './getAll';
 export {default as head} from './head';
 export {default as intersection} from './intersection';
-export {default as intersectionKeys} from './intersectionKeys';
 export {default as isDisjoint} from './isDisjoint';
 export {default as isEmpty} from './isEmpty';
 export {default as isEntry} from './isEntry';

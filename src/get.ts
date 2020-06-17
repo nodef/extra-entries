@@ -6,7 +6,7 @@ import type {Entries} from './_types';
  * @param k key
  */
 function get<T, U>(x: Entries<T, U>, k: T): U {
-  for(var [j, v] of x)
-    if(k===j) return v;
+  for(var [j, u] of x)
+    if(k===j) return u;
 }
 export default get;
