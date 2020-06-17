@@ -1,3 +1,4 @@
+import {reduce as mapReduce} from 'extra-map';
 import type {reduceFn, Entries} from './_types';
 
 /**
@@ -7,11 +8,7 @@ import type {reduceFn, Entries} from './_types';
  * @param acc initial value
  */
 function reduce<T, U, V=U>(x: Entries<T, U>, fn: reduceFn<T, U, U|V>, acc?: U|V): U|V {
-  var init = arguments.length <= 2;
-  for(var [k, v] of x) {
-    if(init) { acc = v; init = false; }
-    else acc = fn(acc, v, k, x);
-  }
-  return acc;
+  var A = arguments.length;
+  return A>2? mapReduce(x, fn, acc) : mapReduce(x, fn);
 }
 export default reduce;
