@@ -1,15 +1,11 @@
+import {concat as mapConcat} from 'extra-map';
 import type {Entries} from './_types';
 
 /**
- * Combines multiple entries, preferring last.
- * @param x entries
- * @param ys other entries
+ * Appends entries from maps, preferring last.
+ * @param xs n entries
  */
-function* concat<T, U>(...xs: Entries<T, U>[]): Entries<T, U> {
-  for(var y of ys) {
-    for(var [k, v] of y)
-      x.set(k, v);
-  }
-  return x;
+function concat<T, U>(...xs: Entries<T, U>[]): Entries<T, U> {
+  return mapConcat(...xs);
 }
 export default concat;

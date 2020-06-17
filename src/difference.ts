@@ -1,3 +1,4 @@
+import {difference as mapDifference} from 'extra-map';
 import type {Entries} from './_types';
 
 /**
@@ -5,9 +6,7 @@ import type {Entries} from './_types';
  * @param x entries
  * @param y another entries
  */
-function* difference<T, U>(x: Entries<T, U>, y: Entries<T, U>): Entries<T, U> {
-  var y1 = new Map(y);
-  for(var [k, v] of x)
-    if(!y1.has(k)) yield [k, v];
+function difference<T, U>(x: Entries<T, U>, y: Entries<T, U>): Entries<T, U> {
+  return mapDifference(x, y);
 }
 export default difference;
