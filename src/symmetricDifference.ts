@@ -1,3 +1,4 @@
+import {symmetricDifference as mapSymmetricSifference} from 'extra-map';
 import type {Entries} from './_types';
 
 /**
@@ -6,11 +7,6 @@ import type {Entries} from './_types';
  * @param y another entries
  */
 function symmetricDifference<T, U>(x: Entries<T, U>, y: Entries<T, U>): Entries<T, U> {
-  var a = new Map(x);
-  for(var [k, v] of y) {
-    if(a.has(k)) a.delete(k);
-    else a.set(k ,v);
-  }
-  return a;
+  return mapSymmetricSifference(x, y);
 }
 export default symmetricDifference;
