@@ -73,7 +73,7 @@ var x = [['a', 1], ['b', 2], ['c', 3]];
 | [partition]           | Segregates values by test result.
 | [cartesianProduct]    | Lists cartesian product of entries.
 | [some]                | Checks if any value satisfies a test.
-| [zip]                 | Combines matching entries from maps.
+| [zip]                 | Combines matching entries from all entries.
 |                       | 
 | [union]               | Gives entries present in any entries.
 | [intersection]        | Gives entries present in both entries.

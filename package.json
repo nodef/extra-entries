@@ -1,6 +1,6 @@
 {
   "name": "extra-entries",
-  "version": "2.1.13",
+  "version": "2.1.14",
   "description": "Entries is a list of key-value pairs, with unique keys.",
   "main": "index.js",
   "module": "index.mjs",
@@ -82,7 +82,8 @@
     "union",
     "unionKeys",
     "value",
-    "values"
+    "values",
+    "zip"
   ],
   "repository": {
     "type": "git",
