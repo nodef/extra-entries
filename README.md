@@ -31,7 +31,7 @@ entries.min(x);
 // [ 'd', -4 ]
 
 var x = [['a', 1], ['b', 2], ['c', 3]];
-[...entries.submaps(x)].map(a => [...a]);
+[...entries.subsets(x)].map(a => [...a]);
 // [
 //   [],
 //   [ [ 'a', 1 ] ],
@@ -84,7 +84,7 @@ var x = [['a', 1], ['b', 2], ['c', 3]];
 | [key]                 | Picks an arbitrary key.
 | [value]               | Picks an arbitrary value.
 | [entry]               | Picks an arbitrary entry.
-| [submap]              | Gives an arbitrary submap.
+| [subset]              | Gives an arbitrary subset.
 |                       | 
 | [isEmpty]             | Checks if entries is empty.
 | [isEqual]             | Checks if two maps are equal.
@@ -137,11 +137,11 @@ var x = [['a', 1], ['b', 2], ['c', 3]];
 [key]: https://github.com/nodef/extra-entries/wiki/key
 [value]: https://github.com/nodef/extra-entries/wiki/value
 [entry]: https://github.com/nodef/extra-entries/wiki/entry
-[submap]: https://github.com/nodef/extra-entries/wiki/submap
+[subset]: https://github.com/nodef/extra-entries/wiki/subset
 [isEmpty]: https://github.com/nodef/extra-entries/wiki/isEmpty
 [isEqual]: https://github.com/nodef/extra-entries/wiki/isEqual
 [compare]: https://github.com/nodef/extra-entries/wiki/compare
 [find]: https://github.com/nodef/extra-entries/wiki/find
 [search]: https://github.com/nodef/extra-entries/wiki/search
 [scanWhile]: https://github.com/nodef/extra-entries/wiki/scanWhile
-[:vhs:]: https://asciinema.org/a/340409
+[:vhs:]: https://asciinema.org/a/341125
