@@ -5,9 +5,9 @@ import type {Entries} from './_types';
  * @param x entries
  * @param k key?
  */
-function isKey<T, U>(x: Entries<T, U>, k: T): boolean {
+function has<T, U>(x: Entries<T, U>, k: T): boolean {
   for(var [j] of x)
     if(j===k) return true;
   return false;
 }
-export default isKey;
+export default has;
