@@ -18,6 +18,7 @@ export {default as forEach} from './forEach';
 export {default as fromLists} from './fromLists';
 export {default as get} from './get';
 export {default as getAll} from './getAll';
+export {default as getPath} from './getPath';
 export {default as has} from './has';
 export {default as hasEntry} from './hasEntry';
 export {default as hasSubset} from './hasSubset';
