@@ -21,6 +21,7 @@ export {default as getAll} from './getAll';
 export {default as getPath} from './getPath';
 export {default as has} from './has';
 export {default as hasEntry} from './hasEntry';
+export {default as hasPath} from './hasPath';
 export {default as hasSubset} from './hasSubset';
 export {default as hasValue} from './hasValue';
 export {default as head} from './head';
