@@ -16,7 +16,7 @@ broadcast in 2008. [(1)]
 ```javascript
 const entries = require('extra-entries');
 // import * as entries from 'extra-entries';
-// import * as entries from 'https://unpkg.com/extra-entries@2.1.0/index.mjs'; (deno)
+// import * as entries from 'https://unpkg.com/extra-entries@2.2.10/index.mjs'; (deno)
 
 var x = [['a', 1], ['b', 2], ['c', 3], ['d', 4], ['e', 5]];
 [...entries.filter(x, v => v % 2 === 1)];
