@@ -1,6 +1,6 @@
 {
   "name": "extra-entries",
-  "version": "2.2.10",
+  "version": "2.2.11",
   "description": "Entries is a list of key-value pairs, with unique keys.",
   "main": "index.js",
   "module": "index.mjs",
@@ -98,9 +98,9 @@
   "author": "wolfram77@gmail.com",
   "license": "MIT",
   "devDependencies": {
-    "extra-array": "^2.10.6",
-    "extra-build": "^1.0.206",
-    "extra-iterable": "^2.5.3",
-    "extra-map": "^2.2.5"
+    "extra-array": "^2.10.8",
+    "extra-build": "^1.1.27",
+    "extra-iterable": "^2.5.13",
+    "extra-map": "^2.2.7"
   }
 }
