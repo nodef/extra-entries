@@ -1,9 +1,5 @@
 [Entries] is a list of key-value pairs, with unique keys. [:running:] [:vhs:] [:package:] [:moon:] [:ledger:]
 
-Methods as separate packages:
-- `@extra-entries/find`: use [rollup] to bundle this es module.
-- `@extra-entries/find.min`: use in browser ([browserify], [uglify-js]).
-
 After Mount St. Helens erupted, researchers had a blank slate from which to
 explore the science of ecological recovery. Scientist Charley Crisafulli was
 drawn to log-covered Spirit Lake, where nutrient rich waters fueled an
@@ -11,7 +7,13 @@ unusually fast resurgence in fish, plant life and amphibians. It’s a
 phenomenon that continues to fascinate scientists everywhere. Originally
 broadcast in 2008. [(1)]
 
+Methods as separate packages:
+- `@extra-entries/find`: use [rollup] to bundle this es module.
+- `@extra-entries/find.min`: use in browser ([browserify], [uglify-js]).
+
 > Stability: Experimental.
+
+<br>
 
 ```javascript
 const entries = require("extra-entries");
@@ -44,58 +46,63 @@ var x = [["a", 1], ["b", 2], ["c", 3]];
 // ]
 ```
 
-### reference
-
-| Method                | Action
-|-----------------------|-------
-| [is]                  | Checks if value is entries.
-| [get]                 | Gets value at key.
-| [set]                 | Sets value at key.
-| [remove]              | Deletes an entry.
-| [swap]                | Exchanges two values.
-| [size]                | Gets size of entries.
-|                       |
-| [head]                | Gets first entry.
-| [take]                | Keeps first n entries only.
-| [shift]               | Removes first entry.
-| [fromLists]           | Creates entries from lists.
-|                       |
-| [concat]              | Appends entries from maps, preferring last.
-| [flat]                | Flattens nested entries to given depth.
-| [chunk]               | Breaks entries into chunks of given size.
-| [filterAt]            | Gets entries with given keys.
-|                       |
-| [map]                 | Updates values based on map function.
-| [filter]              | Keeps entries which pass a test.
-| [reduce]              | Reduces values to a single value.
-| [range]               | Finds smallest and largest entries.
-| [count]               | Counts values which satisfy a test.
-| [partition]           | Segregates values by test result.
-| [cartesianProduct]    | Lists cartesian product of entries.
-| [some]                | Checks if any value satisfies a test.
-| [zip]                 | Combines matching entries from all entries.
-|                       |
-| [union]               | Gives entries present in any entries.
-| [intersection]        | Gives entries present in both entries.
-| [difference]          | Gives entries not present in another.
-| [symmetricDifference] | Gives entries not present in both entries.
-| [isDisjoint]          | Checks if entries have no common keys.
-|                       |
-| [key]                 | Picks an arbitrary key.
-| [value]               | Picks an arbitrary value.
-| [entry]               | Picks an arbitrary entry.
-| [subset]              | Gives an arbitrary subset.
-|                       |
-| [isEmpty]             | Checks if entries is empty.
-| [isEqual]             | Checks if two maps are equal.
-| [compare]             | Compares two entries.
-| [find]                | Finds a value passing a test.
-| [search]              | Finds key of an entry passing a test.
-| [scanWhile]           | Finds key of first entry not passing a test.
-
+<br>
 <br>
 
-[![nodef](https://merferry.glitch.me/card/extra-entries.svg)](https://nodef.github.io)
+
+## Index
+
+| Method                | Action                                       |
+| --------------------- | -------------------------------------------- |
+| [is]                  | Checks if value is entries.                  |
+| [get]                 | Gets value at key.                           |
+| [set]                 | Sets value at key.                           |
+| [remove]              | Deletes an entry.                            |
+| [swap]                | Exchanges two values.                        |
+| [size]                | Gets size of entries.                        |
+|                       |
+| [head]                | Gets first entry.                            |
+| [take]                | Keeps first n entries only.                  |
+| [shift]               | Removes first entry.                         |
+| [fromLists]           | Creates entries from lists.                  |
+|                       |
+| [concat]              | Appends entries from maps, preferring last.  |
+| [flat]                | Flattens nested entries to given depth.      |
+| [chunk]               | Breaks entries into chunks of given size.    |
+| [filterAt]            | Gets entries with given keys.                |
+|                       |
+| [map]                 | Updates values based on map function.        |
+| [filter]              | Keeps entries which pass a test.             |
+| [reduce]              | Reduces values to a single value.            |
+| [range]               | Finds smallest and largest entries.          |
+| [count]               | Counts values which satisfy a test.          |
+| [partition]           | Segregates values by test result.            |
+| [cartesianProduct]    | Lists cartesian product of entries.          |
+| [some]                | Checks if any value satisfies a test.        |
+| [zip]                 | Combines matching entries from all entries.  |
+|                       |
+| [union]               | Gives entries present in any entries.        |
+| [intersection]        | Gives entries present in both entries.       |
+| [difference]          | Gives entries not present in another.        |
+| [symmetricDifference] | Gives entries not present in both entries.   |
+| [isDisjoint]          | Checks if entries have no common keys.       |
+|                       |
+| [key]                 | Picks an arbitrary key.                      |
+| [value]               | Picks an arbitrary value.                    |
+| [entry]               | Picks an arbitrary entry.                    |
+| [subset]              | Gives an arbitrary subset.                   |
+|                       |
+| [isEmpty]             | Checks if entries is empty.                  |
+| [isEqual]             | Checks if two maps are equal.                |
+| [compare]             | Compares two entries.                        |
+| [find]                | Finds a value passing a test.                |
+| [search]              | Finds key of an entry passing a test.        |
+| [scanWhile]           | Finds key of first entry not passing a test. |
+
+<br>
+<br>
+
+[![](https://img.youtube.com/vi/5UABeDXf_iE/maxresdefault.jpg)](https://www.youtube.com/watch?v=5UABeDXf_iE)
 
 [(1)]: https://www.youtube.com/watch?v=5UABeDXf_iE
 [Entries]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries
