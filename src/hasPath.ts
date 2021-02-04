@@ -1,5 +1,5 @@
-import getPath from './getPath';
-import type {Entries} from './_types';
+import getPath from "./getPath";
+import type {Entries} from "./_types";
 
 /**
  * Checks if nested entries has a path.

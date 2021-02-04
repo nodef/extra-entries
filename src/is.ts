@@ -1,4 +1,4 @@
-import {is as iterableIs} from 'extra-iterable';
+import {is as iterableIs} from "extra-iterable";
 
 /**
  * Checks if value is entries.

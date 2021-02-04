@@ -1,5 +1,5 @@
-import {countAs as mapCountAs} from 'extra-map';
-import type {mapFn, Entries} from './_types';
+import {countAs as mapCountAs} from "extra-map";
+import type {mapFn, Entries} from "./_types";
 
 /**
  * Counts occurrences of values.

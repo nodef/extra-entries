@@ -1,7 +1,7 @@
-import id from './_id';
-import cmp from './_cmp';
-import get from './get';
-import type {compareFn, mapFn, Entries} from './_types';
+import id from "./_id";
+import cmp from "./_cmp";
+import get from "./get";
+import type {compareFn, mapFn, Entries} from "./_types";
 
 /**
  * Checks if entries has an entry.

@@ -1,5 +1,5 @@
-import {take as iterableTake} from 'extra-iterable';
-import type {Entries} from './_types';
+import {take as iterableTake} from "extra-iterable";
+import type {Entries} from "./_types";
 
 /**
  * Keeps first n entries only.

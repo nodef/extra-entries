@@ -1,5 +1,5 @@
-import {getAll as mapGetAll} from 'extra-map';
-import type {Entries} from './_types';
+import {getAll as mapGetAll} from "extra-map";
+import type {Entries} from "./_types";
 
 /**
  * Gets values at keys.

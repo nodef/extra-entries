@@ -1,5 +1,5 @@
-import {forEach as mapForEach} from 'extra-map';
-import type {calledFn, Entries} from './_types';
+import {forEach as mapForEach} from "extra-map";
+import type {calledFn, Entries} from "./_types";
 
 /**
  * Calls a function for each value.

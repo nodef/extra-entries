@@ -1,5 +1,5 @@
-import {compare as mapCompare} from 'extra-map';
-import type {compareFn, mapFn, Entries} from './_types';
+import {compare as mapCompare} from "extra-map";
+import type {compareFn, mapFn, Entries} from "./_types";
 
 /**
  * Compares two entries.

@@ -1,5 +1,5 @@
-import {union as mapUnion} from 'extra-map';
-import type {combineFn, Entries} from './_types';
+import {union as mapUnion} from "extra-map";
+import type {combineFn, Entries} from "./_types";
 
 /**
  * Gives entries present in any entries.

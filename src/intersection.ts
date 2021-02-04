@@ -1,5 +1,5 @@
-import {intersection as mapIntersection} from 'extra-map';
-import type {combineFn, Entries} from './_types';
+import {intersection as mapIntersection} from "extra-map";
+import type {combineFn, Entries} from "./_types";
 
 /**
  * Gives entries present in both entries.

@@ -1,5 +1,5 @@
-import drop from './drop';
-import type {Entries} from './_types';
+import drop from "./drop";
+import type {Entries} from "./_types";
 
 /**
  * Removes first entry.

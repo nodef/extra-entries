@@ -1,5 +1,5 @@
-import {count as mapCount} from 'extra-map';
-import type {testFn, Entries} from './_types';
+import {count as mapCount} from "extra-map";
+import type {testFn, Entries} from "./_types";
 
 /**
  * Counts values which satisfy a test.

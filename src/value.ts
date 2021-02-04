@@ -1,6 +1,6 @@
-import values from './values';
-import {value as arrayValue} from 'extra-array';
-import type {Entries} from './_types';
+import values from "./values";
+import {value as arrayValue} from "extra-array";
+import type {Entries} from "./_types";
 
 /**
  * Picks an arbitrary value.

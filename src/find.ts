@@ -1,5 +1,5 @@
-import {find as mapFind} from 'extra-map';
-import type {testFn, Entries} from './_types';
+import {find as mapFind} from "extra-map";
+import type {testFn, Entries} from "./_types";
 
 /**
  * Finds a value passing a test.

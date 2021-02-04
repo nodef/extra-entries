@@ -1,5 +1,5 @@
-import {searchValue as mapSearchValue} from 'extra-map';
-import type {compareFn, mapFn, Entries} from './_types';
+import {searchValue as mapSearchValue} from "extra-map";
+import type {compareFn, mapFn, Entries} from "./_types";
 
 /**
  * Finds key with given value.

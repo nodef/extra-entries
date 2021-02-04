@@ -1,5 +1,5 @@
-import {symmetricDifference as mapSymmetricSifference} from 'extra-map';
-import type {Entries} from './_types';
+import {symmetricDifference as mapSymmetricSifference} from "extra-map";
+import type {Entries} from "./_types";
 
 /**
  * Gives entries not present in both entries.

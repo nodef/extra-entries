@@ -1,5 +1,5 @@
-import {isDisjoint as mapIsDisjoint} from 'extra-map';
-import type {Entries} from './_types';
+import {isDisjoint as mapIsDisjoint} from "extra-map";
+import type {Entries} from "./_types";
 
 /**
  * Checks if entries have no common keys.

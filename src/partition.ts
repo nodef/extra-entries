@@ -1,5 +1,5 @@
-import {partition as mapPartition} from 'extra-map';
-import type {testFn, Entries} from './_types';
+import {partition as mapPartition} from "extra-map";
+import type {testFn, Entries} from "./_types";
 
 /**
  * Segregates values by test result.

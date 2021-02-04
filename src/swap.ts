@@ -1,5 +1,5 @@
-import {swap as mapSwap} from 'extra-map';
-import type {Entries} from './_types';
+import {swap as mapSwap} from "extra-map";
+import type {Entries} from "./_types";
 
 /**
  * Exchanges two values.

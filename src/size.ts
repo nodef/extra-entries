@@ -1,5 +1,5 @@
-import {size as iterableSize} from 'extra-iterable';
-import type {Entries} from './_types';
+import {size as iterableSize} from "extra-iterable";
+import type {Entries} from "./_types";
 
 /**
  * Gets size of entries.

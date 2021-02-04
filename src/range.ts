@@ -1,5 +1,5 @@
-import {range as mapRange} from 'extra-map';
-import type {compareFn, mapFn, Entries} from './_types';
+import {range as mapRange} from "extra-map";
+import type {compareFn, mapFn, Entries} from "./_types";
 
 /**
  * Finds smallest and largest entries.

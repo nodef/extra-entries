@@ -1,5 +1,5 @@
-import {partitionAs as mapPartitionAs} from 'extra-map';
-import type {mapFn, Entries} from './_types';
+import {partitionAs as mapPartitionAs} from "extra-map";
+import type {mapFn, Entries} from "./_types";
 
 /**
  * Segregates values by similarity.

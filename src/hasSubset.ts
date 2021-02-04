@@ -1,5 +1,5 @@
-import {hasSubset as mapHasSubset} from 'extra-map';
-import type {compareFn, mapFn, Entries} from './_types';
+import {hasSubset as mapHasSubset} from "extra-map";
+import type {compareFn, mapFn, Entries} from "./_types";
 
 /**
  * Checks if entries has a subset.

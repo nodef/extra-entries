@@ -14,33 +14,33 @@ broadcast in 2008. [(1)]
 > Stability: Experimental.
 
 ```javascript
-const entries = require('extra-entries');
-// import * as entries from 'extra-entries';
-// import * as entries from 'https://unpkg.com/extra-entries@2.2.10/index.mjs'; (deno)
+const entries = require("extra-entries");
+// import * as entries from "extra-entries";
+// import * as entries from "https://unpkg.com/extra-entries@2.2.10/index.mjs"; (deno)
 
-var x = [['a', 1], ['b', 2], ['c', 3], ['d', 4], ['e', 5]];
+var x = [["a", 1], ["b", 2], ["c", 3], ["d", 4], ["e", 5]];
 [...entries.filter(x, v => v % 2 === 1)];
-// [ [ 'a', 1 ], [ 'c', 3 ], [ 'e', 5 ] ]
+// [ [ "a", 1 ], [ "c", 3 ], [ "e", 5 ] ]
 
-var x = [['a', 1], ['b', 2], ['c', -3], ['d', -4]];
+var x = [["a", 1], ["b", 2], ["c", -3], ["d", -4]];
 entries.some(x, v => v > 10);
 // false
 
-var x = [['a', 1], ['b', 2], ['c', -3], ['d', -4]];
+var x = [["a", 1], ["b", 2], ["c", -3], ["d", -4]];
 entries.min(x);
-// [ 'd', -4 ]
+// [ "d", -4 ]
 
-var x = [['a', 1], ['b', 2], ['c', 3]];
+var x = [["a", 1], ["b", 2], ["c", 3]];
 [...entries.subsets(x)].map(a => [...a]);
 // [
 //   [],
-//   [ [ 'a', 1 ] ],
-//   [ [ 'b', 2 ] ],
-//   [ [ 'a', 1 ], [ 'b', 2 ] ],
-//   [ [ 'c', 3 ] ],
-//   [ [ 'a', 1 ], [ 'c', 3 ] ],
-//   [ [ 'b', 2 ], [ 'c', 3 ] ],
-//   [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', 3 ] ]
+//   [ [ "a", 1 ] ],
+//   [ [ "b", 2 ] ],
+//   [ [ "a", 1 ], [ "b", 2 ] ],
+//   [ [ "c", 3 ] ],
+//   [ [ "a", 1 ], [ "c", 3 ] ],
+//   [ [ "b", 2 ], [ "c", 3 ] ],
+//   [ [ "a", 1 ], [ "b", 2 ], [ "c", 3 ] ]
 // ]
 ```
 
@@ -54,17 +54,17 @@ var x = [['a', 1], ['b', 2], ['c', 3]];
 | [remove]              | Deletes an entry.
 | [swap]                | Exchanges two values.
 | [size]                | Gets size of entries.
-|                       | 
+|                       |
 | [head]                | Gets first entry.
 | [take]                | Keeps first n entries only.
 | [shift]               | Removes first entry.
 | [fromLists]           | Creates entries from lists.
-|                       | 
+|                       |
 | [concat]              | Appends entries from maps, preferring last.
 | [flat]                | Flattens nested entries to given depth.
 | [chunk]               | Breaks entries into chunks of given size.
 | [filterAt]            | Gets entries with given keys.
-|                       | 
+|                       |
 | [map]                 | Updates values based on map function.
 | [filter]              | Keeps entries which pass a test.
 | [reduce]              | Reduces values to a single value.
@@ -74,18 +74,18 @@ var x = [['a', 1], ['b', 2], ['c', 3]];
 | [cartesianProduct]    | Lists cartesian product of entries.
 | [some]                | Checks if any value satisfies a test.
 | [zip]                 | Combines matching entries from all entries.
-|                       | 
+|                       |
 | [union]               | Gives entries present in any entries.
 | [intersection]        | Gives entries present in both entries.
 | [difference]          | Gives entries not present in another.
 | [symmetricDifference] | Gives entries not present in both entries.
 | [isDisjoint]          | Checks if entries have no common keys.
-|                       | 
+|                       |
 | [key]                 | Picks an arbitrary key.
 | [value]               | Picks an arbitrary value.
 | [entry]               | Picks an arbitrary entry.
 | [subset]              | Gives an arbitrary subset.
-|                       | 
+|                       |
 | [isEmpty]             | Checks if entries is empty.
 | [isEqual]             | Checks if two maps are equal.
 | [compare]             | Compares two entries.

@@ -1,6 +1,6 @@
-import is from './is';
-import get from './get';
-import type {Entries} from './_types';
+import is from "./is";
+import get from "./get";
+import type {Entries} from "./_types";
 
 /**
  * Gets value at path in nested entries.

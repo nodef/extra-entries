@@ -1,5 +1,5 @@
-import {concat as mapConcat} from 'extra-map';
-import type {Entries} from './_types';
+import {concat as mapConcat} from "extra-map";
+import type {Entries} from "./_types";
 
 /**
  * Appends entries from maps, preferring last.

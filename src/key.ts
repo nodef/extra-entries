@@ -1,6 +1,6 @@
-import keys from './keys';
-import {value} from 'extra-array';
-import type {Entries} from './_types';
+import keys from "./keys";
+import {value} from "extra-array";
+import type {Entries} from "./_types";
 
 /**
  * Picks an arbitrary key.

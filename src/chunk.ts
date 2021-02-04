@@ -1,5 +1,5 @@
-import {chunk as mapChunk} from 'extra-map';
-import type {Entries} from './_types';
+import {chunk as mapChunk} from "extra-map";
+import type {Entries} from "./_types";
 
 /**
  * Breaks entries into chunks of given size.

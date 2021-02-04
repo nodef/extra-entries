@@ -1,5 +1,5 @@
-import {unionKeys as mapUnionKeys} from 'extra-map';
-import type {Entries} from './_types';
+import {unionKeys as mapUnionKeys} from "extra-map";
+import type {Entries} from "./_types";
 
 /**
  * Gives keys present in any entries.

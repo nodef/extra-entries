@@ -1,5 +1,5 @@
-import {reduce as mapReduce} from 'extra-map';
-import type {reduceFn, Entries} from './_types';
+import {reduce as mapReduce} from "extra-map";
+import type {reduceFn, Entries} from "./_types";
 
 /**
  * Reduces values to a single value.

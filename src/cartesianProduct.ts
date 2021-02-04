@@ -1,5 +1,5 @@
-import {cartesianProduct as mapCartesianProduct} from 'extra-map';
-import type {mapFn, Entries} from './_types';
+import {cartesianProduct as mapCartesianProduct} from "extra-map";
+import type {mapFn, Entries} from "./_types";
 
 /**
  * Lists cartesian product of entries.

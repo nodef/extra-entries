@@ -1,5 +1,5 @@
-import compare from './compare';
-import type {compareFn, mapFn, Entries} from './_types';
+import compare from "./compare";
+import type {compareFn, mapFn, Entries} from "./_types";
 
 /**
  * Checks if two maps are equal.

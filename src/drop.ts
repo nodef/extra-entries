@@ -1,5 +1,5 @@
-import {drop as iterableDrop} from 'extra-iterable';
-import type {Entries} from './_types';
+import {drop as iterableDrop} from "extra-iterable";
+import type {Entries} from "./_types";
 
 /**
  * Removes first n entries.

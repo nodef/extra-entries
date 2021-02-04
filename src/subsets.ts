@@ -1,5 +1,5 @@
-import {subsets as mapSubsets} from 'extra-map';
-import type {Entries} from './_types';
+import {subsets as mapSubsets} from "extra-map";
+import type {Entries} from "./_types";
 
 /**
  * Lists all possible subsets.

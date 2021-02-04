@@ -1,5 +1,5 @@
-import {zip as mapZip} from 'extra-map';
-import type {mapFn, tillFn, Entries} from './_types';
+import {zip as mapZip} from "extra-map";
+import type {mapFn, tillFn, Entries} from "./_types";
 
 /**
  * Combines matching entries from all entries.

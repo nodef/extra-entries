@@ -1,5 +1,5 @@
-import {search as mapSearch} from 'extra-map';
-import type {testFn, Entries} from './_types';
+import {search as mapSearch} from "extra-map";
+import type {testFn, Entries} from "./_types";
 
 /**
  * Finds key of an entry passing a test.

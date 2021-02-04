@@ -1,4 +1,4 @@
-import type {Entries, Lists} from './_types';
+import type {Entries, Lists} from "./_types";
 
 /**
  * Creates entries from lists.

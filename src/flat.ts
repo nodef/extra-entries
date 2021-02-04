@@ -1,6 +1,6 @@
-import is from './is';
-import {flat as mapFlat} from 'extra-map';
-import type {mapFn, testFn, Entries} from './_types';
+import is from "./is";
+import {flat as mapFlat} from "extra-map";
+import type {mapFn, testFn, Entries} from "./_types";
 
 /**
  * Flattens nested entries to given depth.

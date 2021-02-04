@@ -1,5 +1,5 @@
-import size from './size';
-import type {Entries} from './_types';
+import size from "./size";
+import type {Entries} from "./_types";
 
 /**
  * Gets size of entries.
