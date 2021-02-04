@@ -1,4 +1,12 @@
-[Entries] is a list of key-value pairs, with unique keys. [:running:] [:vhs:] [:package:] [:moon:] [:ledger:]
+[Entries] is a list of key-value pairs, with unique keys.<br>
+:package: [NPM](https://www.npmjs.com/package/extra-entries),
+:smiley_cat: [GitHub](https://github.com/orgs/nodef/packages?repo_name=extra-entries),
+:running: [RunKit](https://npm.runkit.com/extra-entries),
+:vhs: [Asciinema](https://asciinema.org/a/341125),
+:moon: [Minified](https://www.npmjs.com/package/extra-entries.min),
+:scroll: [Files](https://unpkg.com/extra-entries/),
+:newspaper: [JSDoc](https://nodef.github.io/extra-entries/),
+:blue_book: [Wiki](https://github.com/nodef/extra-entries/wiki/).
 
 After Mount St. Helens erupted, researchers had a blank slate from which to
 explore the science of ecological recovery. Scientist Charley Crisafulli was
@@ -109,10 +117,6 @@ var x = [["a", 1], ["b", 2], ["c", 3]];
 [browserify]: https://www.npmjs.com/package/browserify
 [rollup]: https://www.npmjs.com/package/rollup
 [uglify-js]: https://www.npmjs.com/package/uglify-js
-[:running:]: https://npm.runkit.com/extra-entries
-[:package:]: https://www.npmjs.com/package/extra-entries
-[:moon:]: https://www.npmjs.com/package/extra-entries.min
-[:ledger:]: https://unpkg.com/extra-entries/
 [is]: https://github.com/nodef/extra-entries/wiki/is
 [get]: https://github.com/nodef/extra-entries/wiki/get
 [set]: https://github.com/nodef/extra-entries/wiki/set
@@ -151,4 +155,3 @@ var x = [["a", 1], ["b", 2], ["c", 3]];
 [find]: https://github.com/nodef/extra-entries/wiki/find
 [search]: https://github.com/nodef/extra-entries/wiki/search
 [scanWhile]: https://github.com/nodef/extra-entries/wiki/scanWhile
-[:vhs:]: https://asciinema.org/a/341125
