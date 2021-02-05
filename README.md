@@ -8,12 +8,9 @@
 :newspaper: [JSDoc](https://nodef.github.io/extra-entries/),
 :blue_book: [Wiki](https://github.com/nodef/extra-entries/wiki/).
 
-After Mount St. Helens erupted, researchers had a blank slate from which to
-explore the science of ecological recovery. Scientist Charley Crisafulli was
-drawn to log-covered Spirit Lake, where nutrient rich waters fueled an
-unusually fast resurgence in fish, plant life and amphibians. It’s a
-phenomenon that continues to fascinate scientists everywhere. Originally
-broadcast in 2008. [(1)]
+All functions except `from*()` take entries as 1st parameter, and expect it
+to be [iterable]. It does not need to be an array. **Entries** are returned
+by `Array`, `Object`, `Set`, `Map`.
 
 Methods as separate packages:
 - `@extra-entries/find`: use [rollup] to bundle this es module.
@@ -112,8 +109,8 @@ var x = [["a", 1], ["b", 2], ["c", 3]];
 
 [![](https://img.youtube.com/vi/5UABeDXf_iE/maxresdefault.jpg)](https://www.youtube.com/watch?v=5UABeDXf_iE)
 
-[(1)]: https://www.youtube.com/watch?v=5UABeDXf_iE
 [Entries]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries
+[iterable]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
 [browserify]: https://www.npmjs.com/package/browserify
 [rollup]: https://www.npmjs.com/package/rollup
 [uglify-js]: https://www.npmjs.com/package/uglify-js
