@@ -1,23 +1,26 @@
 {
   "name": "extra-entries",
-  "version": "2.2.18",
+  "version": "3.0.0",
   "description": "Entries is a list of key-value pairs, with unique keys.",
   "main": "index.js",
   "module": "index.mjs",
+  "sideEffects": false,
   "exports": {
     "require": "./index.js",
     "import": "./index.mjs"
   },
   "scripts": {
     "test": "exit",
-    "build": "ebuild export+main+example+wiki+readme --wikiExample=false --asciinema=false",
-    "deploy": "ebuild jsdoc+export+main+meta+example+github+publish"
+    "build": "node ./build",
+    "publish-docs": "node ./build publish-docs",
+    "publish-packages": "node ./build publish-packages"
   },
-  "runkitExampleFilename": "example.js",
   "keywords": [
     "extra",
     "entries"
   ],
+  "author": "wolfram77@gmail.com",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nodef/extra-entries.git"
@@ -26,8 +29,6 @@
     "url": "https://github.com/nodef/extra-entries/issues"
   },
   "homepage": "https://github.com/nodef/extra-entries#readme",
-  "author": "wolfram77@gmail.com",
-  "license": "MIT",
   "devDependencies": {
     "extra-array": "^2.10.17",
     "extra-build": "^1.3.30",
