@@ -1,53 +1,54 @@
 [Entries] is a list of key-value pairs, with unique keys.<br>
-:package: [NPM](https://www.npmjs.com/package/extra-entries),
-:smiley_cat: [GitHub](https://github.com/orgs/nodef/packages?repo_name=extra-entries),
-:running: [RunKit](https://npm.runkit.com/extra-entries),
-:vhs: [Asciinema](https://asciinema.org/a/341125),
-:moon: [Minified](https://www.npmjs.com/package/extra-entries.min),
-:scroll: [Files](https://unpkg.com/extra-entries/),
-:newspaper: [JSDoc](https://nodef.github.io/extra-entries/),
-:blue_book: [Wiki](https://github.com/nodef/extra-entries/wiki/).
+📦 [Node.js](https://www.npmjs.com/package/extra-iterable),
+🌐 [Web](https://www.npmjs.com/package/extra-iterable.web),
+📜 [Files](https://unpkg.com/extra-iterable/),
+📰 [Docs](https://nodef.github.io/extra-iterable/),
+📘 [Wiki](https://github.com/nodef/extra-iterable/wiki/).
 
 All functions except `from*()` take entries as 1st parameter, and expect it
 to be [iterable]. It does not need to be an array. **Entries** are returned
 by `Array`, `Object`, `Set`, `Map`.
 
-Methods as separate packages:
-- `@extra-entries/find`: use [rollup] to bundle this es module.
-- `@extra-entries/find.min`: use in browser ([browserify], [uglify-js]).
+This package is available in *Node.js* and *Web* formats. The web format
+is exposed as `extra_entries` standalone variable and can be loaded from
+[jsDelivr CDN].
 
-> Stability: Experimental.
+> Stability: [Experimental](https://www.youtube.com/watch?v=L1j93RnIxEo).
+
+[Entries]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries
+[iterable]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
+[jsDelivr CDN]: https://cdn.jsdelivr.net/npm/extra-iterable.web/index.js
 
 <br>
 
 ```javascript
-const entries = require("extra-entries");
+const entries = require('extra-entries');
 // import * as entries from "extra-entries";
-// import * as entries from "https://unpkg.com/extra-entries@2.2.10/index.mjs"; (deno)
+// import * as entries from "https://unpkg.com/extra-entries/index.mjs"; (deno)
 
-var x = [["a", 1], ["b", 2], ["c", 3], ["d", 4], ["e", 5]];
+var x = [['a', 1], ['b', 2], ['c', 3], ['d', 4], ['e', 5]];
 [...entries.filter(x, v => v % 2 === 1)];
-// [ [ "a", 1 ], [ "c", 3 ], [ "e", 5 ] ]
+// [ [ 'a', 1 ], [ 'c', 3 ], [ 'e', 5 ] ]
 
-var x = [["a", 1], ["b", 2], ["c", -3], ["d", -4]];
+var x = [['a', 1], ['b', 2], ['c', -3], ['d', -4]];
 entries.some(x, v => v > 10);
 // false
 
-var x = [["a", 1], ["b", 2], ["c", -3], ["d", -4]];
+var x = [['a', 1], ['b', 2], ['c', -3], ['d', -4]];
 entries.min(x);
-// [ "d", -4 ]
+// [ 'd', -4 ]
 
-var x = [["a", 1], ["b", 2], ["c", 3]];
+var x = [['a', 1], ['b', 2], ['c', 3]];
 [...entries.subsets(x)].map(a => [...a]);
 // [
 //   [],
-//   [ [ "a", 1 ] ],
-//   [ [ "b", 2 ] ],
-//   [ [ "a", 1 ], [ "b", 2 ] ],
-//   [ [ "c", 3 ] ],
-//   [ [ "a", 1 ], [ "c", 3 ] ],
-//   [ [ "b", 2 ], [ "c", 3 ] ],
-//   [ [ "a", 1 ], [ "b", 2 ], [ "c", 3 ] ]
+//   [ [ 'a', 1 ] ],
+//   [ [ 'b', 2 ] ],
+//   [ [ 'a', 1 ], [ 'b', 2 ] ],
+//   [ [ 'c', 3 ] ],
+//   [ [ 'a', 1 ], [ 'c', 3 ] ],
+//   [ [ 'b', 2 ], [ 'c', 3 ] ],
+//   [ [ 'a', 1 ], [ 'b', 2 ], [ 'c', 3 ] ]
 // ]
 ```
 
@@ -57,7 +58,7 @@ var x = [["a", 1], ["b", 2], ["c", 3]];
 
 ## Index
 
-| Method                | Action                                       |
+| Property              | Description                                  |
 | --------------------- | -------------------------------------------- |
 | [is]                  | Checks if value is entries.                  |
 | [get]                 | Gets value at key.                           |
@@ -107,13 +108,10 @@ var x = [["a", 1], ["b", 2], ["c", 3]];
 <br>
 <br>
 
-[![](https://img.youtube.com/vi/5UABeDXf_iE/maxresdefault.jpg)](https://www.youtube.com/watch?v=5UABeDXf_iE)
 
-[Entries]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries
-[iterable]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
-[browserify]: https://www.npmjs.com/package/browserify
-[rollup]: https://www.npmjs.com/package/rollup
-[uglify-js]: https://www.npmjs.com/package/uglify-js
+[![](https://img.youtube.com/vi/5UABeDXf_iE/maxresdefault.jpg)](https://www.youtube.com/watch?v=5UABeDXf_iE)<br>
+
+
 [is]: https://github.com/nodef/extra-entries/wiki/is
 [get]: https://github.com/nodef/extra-entries/wiki/get
 [set]: https://github.com/nodef/extra-entries/wiki/set
