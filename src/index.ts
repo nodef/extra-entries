@@ -2,8 +2,13 @@ import {
   IDENTITY,
   COMPARE,
 } from "extra-function";
-import {is}      from "extra-iterable";
-import {concat$} from "extra-map";
+import {
+  is as iterableIs,
+} from "extra-iterable";
+import {
+  compare as mapCompare,
+  swap$   as mapSwap$,
+} from "extra-map";
 
 
 
@@ -149,37 +154,30 @@ export function* fromLists<K, V>(x: Lists<K, V>): Entries<K, V> {
 // COMPARE
 // -------
 
-import {compare as mapCompare} from "extra-map";
-import type {compareFn, mapFn, Entries} from "./_types";
-
 /**
- * Compares two entries.
+ * Compare two entries.
  * @param x entries
  * @param y another entries
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
  * @returns x=y: 0, otherwise: -ve/+ve
  */
-function compare<T, U, V=U>(x: Entries<T, U>, y: Entries<T, U>, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): number {
+export function compare<K, V, W=V>(x: Entries<K, V>, y: Entries<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): number {
   return mapCompare(new Map(x), new Map(y), fc, fm);
 }
-export default compare;
 
-
-import compare from "./compare";
-import type {compareFn, mapFn, Entries} from "./_types";
 
 /**
- * Checks if two maps are equal.
- * @param x a map
- * @param y another map
+ * Check if two entries are equal.
+ * @param x entries
+ * @param y another entries
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
+ * @returns x = y?
  */
-function isEqual<T, U, V=U>(x: Entries<T, U>, y: Entries<T, U>, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): boolean {
+export function isEqual<K, V, W=V>(x: Entries<K, V>, y: Entries<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): boolean {
   return compare(x, y, fc, fm)===0;
 }
-export default isEqual;
 
 
 
@@ -205,7 +203,7 @@ export {
  * @param k key
  * @returns x[k]
  */
-export function get<K, T>(x: Entries<K, T>, k: K): T {
+export function get<K, V>(x: Entries<K, V>, k: K): V {
   for (var [j, u] of x)
     if (j===k) return u;
 }
@@ -217,7 +215,7 @@ export function get<K, T>(x: Entries<K, T>, k: K): T {
  * @param ks keys
  * @returns x[k₀], x[k₁], ... | [k₀, k₁, ...] = ks
  */
-export function getAll<K, T>(x: Entries<K, T>, ks: K[]): Iterable<T> {
+export function getAll<K, V>(x: Entries<K, V>, ks: K[]): Iterable<V> {
   var m = new Map();
   for (var [k, v] of x)
     if (ks.includes(k)) m.set(k, v);
@@ -236,7 +234,7 @@ export function getAll<K, T>(x: Entries<K, T>, ks: K[]): Iterable<T> {
  */
 export function getPath<K>(x: Entries<K, any>, p: K[]): any {
   for (var k of p)
-    x = is(x)? get(x, k) : undefined;
+    x = iterableIs(x)? get(x, k) : undefined;
   return x;
 }
 
@@ -259,34 +257,31 @@ export function hasPath<K>(x: Entries<K, any>, p: K[]): boolean {
  * @param v value
  * @returns x' | x' = x; x'[k] = v
  */
-export function* set<K, T>(x: Entries<K, T>, k: K, v: T): Entries<K, T> {
+export function* set<K, V>(x: Entries<K, V>, k: K, v: V): Entries<K, V> {
   for (var [j, u] of x)
     yield j===k? [j, v] : [j, u];
 }
 
 
-import {swap as mapSwap} from "extra-map";
-import type {Entries} from "./_types";
-
 /**
- * Exchanges two values.
+ * Exchange two values.
  * @param x entries
  * @param k a key
  * @param l another key
+ * @returns x' | x' = x; x'[k] = x[l]; x'[l] = x[k]
  */
-function swap<T, U>(x: Entries<T, U>, k: T, l: T): Entries<T, U> {
-  return mapSwap(x, k, l);
+export function swap<K, V>(x: Entries<K, V>, k: K, l: K): Entries<K, V> {
+  return mapSwap$(new Map(x), k, l);
 }
-export default swap;
 
 
 /**
- * Remove an entry.
+ * Remove value at key.
  * @param x entries
  * @param k key
- * @returns x - [k, x[k]]
+ * @returns x \\: [k]
  */
-export function* remove<K, T>(x: Entries<K, T>, k: K): Entries<K, T> {
+export function* remove<K, V>(x: Entries<K, V>, k: K): Entries<K, V> {
   for (var [j, u] of x)
     if (j!==k) yield [j, u];
 }
@@ -297,79 +292,120 @@ export function* remove<K, T>(x: Entries<K, T>, k: K): Entries<K, T> {
 // PROPERTY
 // --------
 
-import {count as mapCount} from "extra-map";
-import type {testFn, Entries} from "./_types";
-
 /**
- * Counts values which satisfy a test.
- * @param x a map
+ * Count values which satisfy a test.
+ * @param x entries
  * @param ft test function (v, k, x)
+ * @returns Σtᵢ | tᵢ = 1 if ft(vᵢ) else 0; [kᵢ, vᵢ] ∈ x
  */
-function count<T, U>(x: Entries<T, U>, ft: testFn<T, U>): number {
-  return mapCount(x, ft);
+export function count<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): number {
+  var a = 0;
+  for (var [k, v] of x)
+    if (ft(v, k, x)) ++a;
+  return a;
 }
-export default count;
 
-
-import {countAs as mapCountAs} from "extra-map";
-import type {mapFn, Entries} from "./_types";
 
 /**
- * Counts occurrences of values.
+ * Count occurrences of values.
  * @param x entries
  * @param fm map function (v, k, x)
- * @returns Map {value => count}
+ * @returns Map \{value ⇒ count\}
  */
-function countAs<T, U, V=U>(x: Entries<T, U>, fm: mapFn<T, U, U|V>): Map<U|V, number> {
-  return mapCountAs(x, fm);
+export function countAs<K, V, W=V>(x: Entries<K, V>, fm: MapFunction<K, V, V|W>): Map<V|W, number> {
+  var fm = fm || IDENTITY;
+  var a  = new Map();
+  for (var [k, v] of x) {
+    var w = fm(v, k, x);
+    var n = a.get(w) || 0;
+    a.set(w, n+1);
+  }
+  return a;
 }
-export default countAs;
 
-
-import range from "./range";
-import type {compareFn, mapFn, Entries} from "./_types";
 
 /**
- * Finds smallest entry.
- * @param x entries
- * @param fc compare function (a, b)
- * @param fm map function (v, k, x)
- */
-function min<T, U, V=U>(x: Entries<T, U>, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): [T, U] {
-  return range(x, fc, fm)[0];
-}
-export default min;
-
-
-import range from "./range";
-import type {compareFn, mapFn, Entries} from "./_types";
-
-/**
- * Finds largest entry.
+ * Find smallest value.
  * @param x entries
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
+ * @returns v | v ≤ vᵢ; [kᵢ, vᵢ] ∈ x
  */
-function max<T, U, V=U>(x: Entries<T, U>, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): [T, U] {
-  return range(x, fc, fm)[1];
+export function min<K, V, W=V>(x: Entries<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): V {
+  return rangeEntries(x, fc, fm)[0][1];
 }
-export default max;
 
-
-import {range as mapRange} from "extra-map";
-import type {compareFn, mapFn, Entries} from "./_types";
 
 /**
- * Finds smallest and largest entries.
+ * Find smallest entry.
  * @param x entries
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
- * @returns [smallest, largest]
+ * @returns [min_key, min_value]
  */
-function range<T, U, V=U>(x: Entries<T, U>, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): [[T, U], [T, U]] {
-  return mapRange(x, fc, fm);
+export function minEntry<K, V, W=V>(x: Entries<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): [K, V] {
+  return rangeEntries(x, fc, fm)[0];
 }
-export default range;
+
+
+/**
+ * Find largest value.
+ * @param x entries
+ * @param fc compare function (a, b)
+ * @param fm map function (v, k, x)
+ * @returns v | v ≥ vᵢ; [kᵢ, vᵢ] ∈ x
+ */
+export function max<K, V, W=V>(x: Entries<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): V {
+  return rangeEntries(x, fc, fm)[1][1];
+}
+
+
+/**
+ * Find largest entry.
+ * @param x entries
+ * @param fc compare function (a, b)
+ * @param fm map function (v, k, x)
+ * @returns [max_key, max_value]
+ */
+export function maxEntry<K, V, W=V>(x: Entries<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): [K, V] {
+  return rangeEntries(x, fc, fm)[1];
+}
+
+
+/**
+ * Find smallest and largest values.
+ * @param x entries
+ * @param fc compare function (a, b)
+ * @param fm map function (v, k, x)
+ * @returns [min_value, max_value]
+ */
+export function range<K, V, W=V>(x: Entries<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): [V, V] {
+  var [a, b] = rangeEntries(x, fc, fm);
+  return [a[1], b[1]];
+}
+
+
+/**
+ * Find smallest and largest entries.
+ * @param x entries
+ * @param fc compare function (a, b)
+ * @param fm map function (v, k, x)
+ * @returns [min_entry, max_entry]
+ */
+export function rangeEntries<K, V, W=V>(x: Entries<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): [[K, V], [K, V]] {
+  var fc = fc || COMPARE;
+  var fm = fm || IDENTITY;
+  var mk: K, mu: V, mv: V|W;
+  var nk: K, nu: V, nv: V|W;
+  var i = 0;
+  for (var [k, u] of x) {
+    var v = fm(u, k, x);
+    if (i===0 || fc(v, mv)<0) { mk = k; mu = u; mv = v; }
+    if (i===0 || fc(v, nv)>0) { nk = k; nu = u; nv = v; }
+    ++i;
+  }
+  return [[mk, mu], [nk, nu]];
+}
 
 
 
@@ -377,59 +413,12 @@ export default range;
 // PART
 // ----
 
-import {head as iterableHead} from "extra-iterable";
-import type {Entries} from "./_types";
-
-/**
- * Gets first entry.
- * @param x entries
- * @param ed default entry
- */
-function head<T, U>(x: Entries<T, U>, ed: [T, U]=[] as any): [T, U] {
-  return iterableHead(x, ed);
-}
-export default head;
-
-
-import drop from "./drop";
-import type {Entries} from "./_types";
-
-/**
- * Gets entries without the first entry.
- * @param x entries
- */
-function* tail<T, U>(x: Entries<T, U>): Entries<T, U> {
-  yield* drop(x, 1);
-}
-export default tail;
-
-
-import {take as iterableTake} from "extra-iterable";
-import type {Entries} from "./_types";
-
-/**
- * Keeps first n entries only.
- * @param x entries
- * @param n number of entries (1)
- */
-function* take<T, U>(x: Entries<T, U>, n: number=1): Entries<T, U> {
-  yield* iterableTake(x, n);
-}
-export default take;
-
-
-import {drop as iterableDrop} from "extra-iterable";
-import type {Entries} from "./_types";
-
-/**
- * Removes first n entries.
- * @param x entries
- * @param n number of entries (1)
- */
-function drop<T, U>(x: Entries<T, U>, n: number=1): Entries<T, U> {
-  return iterableDrop(x, n);
-}
-export default drop;
+export {
+  head,
+  tail,
+  take,
+  drop,
+} from "extra-iterable";
 
 
 
@@ -438,76 +427,65 @@ export default drop;
 // ------------
 
 import {subsets as mapSubsets} from "extra-map";
-import type {Entries} from "./_types";
 
 /**
- * Lists all possible subsets.
- * @param x a map
- * @param n number of entries (-1 => any)
+ * List all possible subsets.
+ * @param x entries
+ * @param n number of entries in each subset [-1 ⇒ any]
+ * @returns entries selected by bit from 0..2^|x| if n<0; only of length n otherwise
  */
-function* subsets<T, U>(x: Entries<T, U>, n: number=-1): Iterable<Entries<T, U>> {
+export function* subsets<K, V>(x: Entries<K, V>, n: number=-1): Iterable<Entries<K, V>> {
   yield* mapSubsets(new Map(x), n);
 }
-export default subsets;
 
 
-import keys from "./keys";
-import {value} from "extra-array";
-import type {Entries} from "./_types";
+import {randomValue as arrayRandomValue} from "extra-array";
 
 /**
- * Picks an arbitrary key.
+ * Pick an arbitrary key.
  * @param x entries
- * @param r random seed 0->1
+ * @param fr random number generator ([0, 1))
+ * @returns kᵢ | [kᵢ, vᵢ] ∈ x
  */
-function key<T, U>(x: Entries<T, U>, r: number=Math.random()): T {
-  return value([...keys(x)], r);
+export function randomKey<K, V>(x: Entries<K, V>, fr: ReadFunction<number>=Math.random): K {
+  return arrayRandomValue([...keys(x)], fr);
 }
-export default key;
 
-
-import values from "./values";
-import {value as arrayValue} from "extra-array";
-import type {Entries} from "./_types";
 
 /**
- * Picks an arbitrary value.
+ * Pick an arbitrary value.
  * @param x entries
- * @param r random seed 0->1
+ * @param fr random number generator ([0, 1))
+ * @returns [kᵢ, vᵢ] | [kᵢ, vᵢ] ∈ x
  */
-function value<T, U>(x: Entries<T, U>, r: number=Math.random()): U {
-  return arrayValue([...values(x)], r);
+export function randomValue<K, V>(x: Entries<K, V>, fr: ReadFunction<number>=Math.random): V {
+  return arrayRandomValue([...values(x)], fr);
 }
-export default value;
 
-
-import {value} from "extra-array";
-import type {Entries} from "./_types";
 
 /**
- * Picks an arbitrary entry.
+ * Pick an arbitrary entry.
  * @param x entries
- * @param r random seed 0->1
+ * @param fr random number generator ([0, 1))
+ * @returns [kᵢ, vᵢ] | [kᵢ, vᵢ] ∈ x
  */
-function entry<T, U>(x: Entries<T, U>, r: number=Math.random()): [T, U] {
-  return value([...x], r);
+export function randomEntry<K, V>(x: Entries<K, V>, fr: ReadFunction<number>=Math.random): [K, V] {
+  return arrayRandomValue([...x], fr);
 }
-export default entry;
 
 
-import {subset as mapSubset} from "extra-map";
-import type {Entries} from "./_types";
+import {randomSubset as mapRandomSubset} from "extra-map";
 
 /**
- * Gives an arbitrary subset.
+ * Pick an arbitrary subset.
  * @param x entries
- * @param n number of entries (-1 => any)
- * @param r random seed 0->1
+ * @param n number of entries [-1 ⇒ any]
+ * @param fr random number generator ([0, 1))
+ * @returns \{[kᵢ, vᵢ], [kⱼ, vⱼ], ...\} | [kᵢ, vᵢ], [kⱼ, vⱼ], ... ∈ x; |\{[kᵢ, vᵢ], [kⱼ, vⱼ], ...\}| = |x| if n<0 else n
  */
-function subset<T, U>(x: Entries<T, U>, n: number=-1, r: number=Math.random()): Entries<T, U> {
-  return mapSubset(new Map(x), n, r);
+export function subset<K, V>(x: Entries<K, V>, n: number=-1, fr: ReadFunction<number> | null=Math.random): Entries<K, V> {
+  return mapRandomSubset(new Map(x), n, fr);
 }
-export default subset;
 
 
 
@@ -519,169 +497,128 @@ export default subset;
  * Check if entries has a key.
  * @param x entries
  * @param k search key
- * @returns x[k] exists?
+ * @returns [k, *] ∈ x?
  */
-export function has<K, T>(x: Entries<K, T>, k: K): boolean {
+export function has<K, V>(x: Entries<K, V>, k: K): boolean {
   for (var [j] of x)
     if (j===k) return true;
   return false;
 }
 
 
-import searchValue from "./searchValue";
-import type {compareFn, mapFn, Entries} from "./_types";
-
 /**
- * Checks if map has a value.
- * @param x a map
- * @param v value?
+ * Check if entries has a value.
+ * @param x entries
+ * @param v search value
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
+ * @returns [*, v] ∈ x?
  */
-function hasValue<T, U, V=U>(x: Entries<T, U>, v: U, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): boolean {
+export function hasValue<K, V, W=V>(x: Entries<K, V>, v: V, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): boolean {
   return searchValue(x, v, fc, fm)!==undefined;
 }
-export default hasValue;
 
-
-import id from "./_id";
-import cmp from "./_cmp";
-import get from "./get";
-import type {compareFn, mapFn, Entries} from "./_types";
 
 /**
- * Checks if entries has an entry.
+ * Check if entries has an entry.
  * @param x entries
- * @param e entry?
+ * @param e search entry ([k, v])
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
+ * @returns [k, v] ∈ x? | [k, v] = e
  */
-function hasEntry<T, U, V=U>(x: Entries<T, U>, e: [T, U], fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): boolean {
-  var fc = fc||cmp, fm = fm||id;
+export function hasEntry<K, V, W=V>(x: Entries<K, V>, e: [K, V], fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): boolean {
+  var fc = fc || COMPARE;
+  var fm = fm || IDENTITY;
   var [k, v] = e, u = get(x, k);
   var u1 = fm(u, k, x);
   var v1 = fm(v, k, x);
   return fc(u1, v1)===0;
 }
-export default hasEntry;
 
 
 import {hasSubset as mapHasSubset} from "extra-map";
-import type {compareFn, mapFn, Entries} from "./_types";
 
 /**
- * Checks if entries has a subset.
+ * Check if entries has a subset.
  * @param x entries
- * @param y subset?
+ * @param y search subset
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
+ * @returns y ⊆ x?
  */
-function hasSubset<T, U, V=U>(x: Entries<T, U>, y: Entries<T, U>, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): boolean {
-  return mapHasSubset(new Map(x), y, fc, fm);
+export function hasSubset<K, V, W=V>(x: Entries<K, V>, y: Entries<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): boolean {
+  return mapHasSubset(new Map(x), new Map(y), fc, fm);
 }
-export default hasSubset;
 
 
 /**
- * Find a value passing a test.
+ * Find first value passing a test (default order).
  * @param x entries
  * @param ft test function (v, k, x)
- * @returns v | ft(v) = true; [k, v] ∈ x
+ * @returns first v | ft(v) = true; [k, v] ∈ x
  */
-export function find<K, T>(x: Entries<K, T>, ft: TestFunction<K, T>): T {
+export function find<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): V {
   for (var [k, v] of x)
     if (ft(v, k, x)) return v;
 }
 
 
-import {findAll as mapFindAll} from "extra-map";
-import type {testFn, Entries} from "./_types";
 
 /**
- * Finds values passing a test.
+ * Find values passing a test.
  * @param x entries
  * @param ft test function (v, k, x)
+ * @returns v₀, v₁, ... | ft(vᵢ) = true; [kᵢ, vᵢ] ∈ x
  */
-function findAll<T, U>(x: Entries<T, U>, ft: testFn<T, U>): Iterable<U> {
-  return mapFindAll(x, ft);
+export function* findAll<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): Iterable<V> {
+  for (var [k, v] of x)
+    if (ft(v, k, x)) yield v;
 }
-export default findAll;
 
-
-import {scanWhile as mapScanWhile} from "extra-map";
-import type {testFn, Entries} from "./_types";
-
-/**
- * Finds key of first entry not passing a test.
- * @param x entries
- * @param ft test function (v, k, x)
- */
-function scanWhile<T, U>(x: Entries<T, U>, ft: testFn<T, U>): T {
-  return mapScanWhile(x, ft);
-}
-export default scanWhile;
-
-
-import search from "./search";
-import type {testFn, Entries} from "./_types";
-
-/**
- * Finds key of first entry passing a test.
- * @param x entries
- * @param ft test function (v, k, x)
- */
-function scanUntil<T, U>(x: Entries<T, U>, ft: testFn<T, U>): T {
-  return search(x, ft);
-}
-export default scanUntil;
-
-
-import {search as mapSearch} from "extra-map";
-import type {testFn, Entries} from "./_types";
 
 /**
  * Finds key of an entry passing a test.
  * @param x entries
  * @param ft test function (v, k, x)
+ * @returns key of entry
  */
-function search<T, U>(x: Entries<T, U>, ft: testFn<T, U>): T {
-  return mapSearch(x, ft);
+export function search<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): K {
+  for (var [k, v] of x)
+    if (ft(v, k, x)) return k;
 }
-export default search;
 
-
-import {searchAll as mapSearchAll} from "extra-map";
-import type {testFn, Entries} from "./_types";
 
 /**
- * Finds keys of entries passing a test.
+ * Find keys of entries passing a test.
  * @param x entries
  * @param ft test function (v, k, x)
+ * @returns keys of entries
  */
-function searchAll<T, U>(x: Entries<T, U>, ft: testFn<T, U>): Iterable<T> {
-  return mapSearchAll(x, ft);
+export function* searchAll<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): Iterable<K> {
+  for (var [k, v] of x)
+    if (ft(v, k, x)) yield k;
 }
-export default searchAll;
 
-
-import {searchValue as mapSearchValue} from "extra-map";
-import type {compareFn, mapFn, Entries} from "./_types";
 
 /**
- * Finds key with given value.
+ * Find a key with given value.
  * @param x entries
  * @param v search value
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
+ * @returns key of value
  */
-function searchValue<T, U, V=U>(x: Entries<T, U>, v: U, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): T {
-  return mapSearchValue(x, v, fc, fm);
+export function searchValue<K, V, W=V>(x: Entries<K, V>, v: V, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): K {
+  var fc = fc || COMPARE;
+  var fm = fm || IDENTITY;
+  var w = fm(v, null, null);
+  for (var [k, u] of x) {
+    var wx = fm(u, k, x);
+    if (fc(wx, w)===0) return k;
+  }
 }
-export default searchValue;
 
-
-import {searchValueAll as mapSearchValueAll} from "extra-map";
-import type {compareFn, mapFn, Entries} from "./_types";
 
 /**
  * Finds keys with given value.
@@ -689,11 +626,17 @@ import type {compareFn, mapFn, Entries} from "./_types";
  * @param v search value
  * @param fc compare function (a, b)
  * @param fm map function (v, k, x)
+ * @returns keys of value
  */
-function searchValueAll<T, U, V=U>(x: Entries<T, U>, v: U, fc: compareFn<U|V>=null, fm: mapFn<T, U, U|V>=null): Iterable<T> {
-  return mapSearchValueAll(x, v, fc, fm);
+export function* searchValueAll<K, V, W=V>(x: Entries<K, V>, v: V, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): Iterable<K> {
+  var fc = fc || COMPARE;
+  var fm = fm || IDENTITY;
+  var w  = fm(v, null, null);
+  for(var [k, u] of x) {
+    var wx = fm(u, k, x);
+    if (fc(wx, w)===0) yield k;
+  }
 }
-export default searchValueAll;
 
 
 
@@ -712,32 +655,29 @@ export function forEach<K, T>(x: Entries<K, T>, fp: ProcessFunction<K, T>): void
 }
 
 
-import scanUntil from "./scanUntil";
-import type {testFn, Entries} from "./_types";
+/**
+ * Check if any value satisfies a test.
+ * @param x entries
+ * @param ft test function (v, k, x)
+ * @returns true if ft(vᵢ) = true for some [kᵢ, vᵢ] ∈ x
+ */
+export function some<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): boolean {
+  for (var [k, v] of x)
+    if (ft(v, k, x)) return true;
+  return false;
+}
+
 
 /**
- * Checks if any value satisfies a test.
+ * Check if all values satisfy a test.
  * @param x entries
  * @param ft test function (v, k, x)
  */
-function some<T, U>(x: Entries<T, U>, ft: testFn<T, U>): boolean {
-  return scanUntil(x, ft)!==undefined;
+export function every<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): boolean {
+  for (var [k, v] of x)
+    if (!ft(v, k, x)) return false;
+  return true;
 }
-export default some;
-
-
-import scanWhile from "./scanWhile";
-import type {testFn, Entries} from "./_types";
-
-/**
- * Checks if all values satisfy a test.
- * @param x entries
- * @param ft test function (v, k, x)
- */
-function every<T, U>(x: Entries<T, U>, ft: testFn<T, U>): boolean {
-  return scanWhile(x, ft)===undefined;
-}
-export default every;
 
 
 /**
@@ -746,7 +686,7 @@ export default every;
  * @param fm map function (v, k, x)
  * @returns [k₀, fm(v₀)], [k₁, fm(v₁)], ... | [kᵢ, vᵢ] ∈ x
  */
-export function* map<K, T, U=T>(x: Entries<K, T>, fm: MapFunction<K, T, T|U>): Entries<K, T|U> {
+export function* map<K, V, W=V>(x: Entries<K, V>, fm: MapFunction<K, V, V|W>): Entries<K, V|W> {
   for (var [k, v] of x)
     yield [k, fm(v, k, x)];
 }
@@ -759,7 +699,7 @@ export function* map<K, T, U=T>(x: Entries<K, T>, fm: MapFunction<K, T, T|U>): E
  * @param acc initial value
  * @returns fr(fr(acc, v₀), v₁)... | fr(acc, v₀) = v₀ if acc not given
  */
-export function reduce<K, T, U=T>(x: Entries<K, T>, fr: ReduceFunction<K, T, T|U>, acc?: T|U): T|U {
+export function reduce<K, V, W=V>(x: Entries<K, V>, fr: ReduceFunction<K, V, V|W>, acc?: V|W): V|W {
   var init = arguments.length <= 2;
   for (var [k, v] of x) {
     if (init) { init = false; acc = v; }
@@ -770,12 +710,12 @@ export function reduce<K, T, U=T>(x: Entries<K, T>, fr: ReduceFunction<K, T, T|U
 
 
 /**
- * Keep the entries which pass a test.
+ * Keep entries which pass a test.
  * @param x entries
  * @param ft test function (v, k, x)
  * @returns [k₀, v₀], [k₁, v₁], ... | ft(vᵢ) = true; [kᵢ, vᵢ] ∈ x
  */
-export function* filter<K, T>(x: Entries<K, T>, ft: TestFunction<K, T>): Entries<K, T> {
+export function* filter<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): Entries<K, V> {
   for (var [k, v] of x)
     if (ft(v, k, x)) yield [k, v];
 }
@@ -785,21 +725,21 @@ export function* filter<K, T>(x: Entries<K, T>, ft: TestFunction<K, T>): Entries
  * Keep entries with given keys.
  * @param x entries
  * @param ks keys
- * @returns [k₀, v₀], [k₁, v₁], ... | vₖ = x[k]; k ∈ ks
+ * @returns [k₀, v₀], [k₁, v₁], ... | kᵢ ∈ ks; [kᵢ, vᵢ] ∈ x
  */
-export function* filterAt<K, T>(x: Entries<K, T>, ks: K[]): Entries<K, T> {
+export function* filterAt<K, V>(x: Entries<K, V>, ks: K[]): Entries<K, V> {
   for (var [k, v] of x)
     if (ks.includes(k)) yield [k, v];
 }
 
 
 /**
- * Discard the entries which pass a test.
+ * Discard entries which pass a test.
  * @param x entries
  * @param ft test function (v, k, x)
  * @returns [k₀, v₀], [k₁, v₁], ... | ft(vᵢ) = false; [kᵢ, vᵢ] ∈ x
  */
-export function* reject<K, T>(x: Entries<K, T>, ft: TestFunction<K, T>): Entries<K, T> {
+export function* reject<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): Entries<K, V> {
   for (var [k, v] of x)
     if (!ft(v, k, x)) yield [k, v];
 }
@@ -809,45 +749,45 @@ export function* reject<K, T>(x: Entries<K, T>, ft: TestFunction<K, T>): Entries
  * Discard entries with given keys.
  * @param x entries
  * @param ks keys
- * @returns [k₀, v₀], [k₁, v₁], ... | vₖ = x[k]; k ∉ ks
+ * @returns [k₀, v₀], [k₁, v₁], ... | kᵢ ∉ ks; [kᵢ, vᵢ] ∈ x
  */
-export function* rejectAt<K, T>(x: Entries<K, T>, ks: K[]): Entries<K, T> {
+export function* rejectAt<K, V>(x: Entries<K, V>, ks: K[]): Entries<K, V> {
   for (var [k, v] of x)
     if (!ks.includes(k)) yield [k, v];
 }
 
 
-import is from "./is";
 import {flat as mapFlat} from "extra-map";
-import type {mapFn, testFn, Entries} from "./_types";
 
 /**
- * Flattens nested entries to given depth.
+ * Flatten nested entries to given depth.
  * @param x nested entries
- * @param n maximum depth (-1 => all)
+ * @param n maximum depth [-1 ⇒ all]
  * @param fm map function (v, k, x)
- * @param ft test function (v, k, x)
+ * @param ft test function for flatten (v, k, x) [is]
+ * @returns flat map
  */
-function flat<T>(x: Entries<T, any>, n: number=-1, fm: mapFn<T, any, any>=null, ft: testFn<T, any>=null): Entries<T, any> {
-  return mapFlat(x, n, fm, ft||is);
+export function flat<K>(x: Entries<K, any>, n: number=-1, fm: MapFunction<K, any, any> | null=null, ft: TestFunction<K, any> | null=null): Entries<K, any> {
+  return mapFlat(x as Map<K, any>, n, fm, ft || iterableIs);
 }
-export default flat;
 
+
+import {concat$ as mapConcat$} from "extra-map";
 
 /**
  * Flatten nested entries, based on map function.
  * @param x nested entries
  * @param fm map function (v, k, x)
- * @param ft test function (v, k, x) [is]
+ * @param ft test function for flatten (v, k, x) [is]
  * @returns flat entries
  */
 export function flatMap<K>(x: Entries<K, any>, fm: MapFunction<K, any, any> | null=null, ft: TestFunction<K, any> | null=null): Entries<K, any> {
   var fm = fm || IDENTITY;
-  var ft = ft || is;
+  var ft = ft || iterableIs;
   var a  = new Map();
   for (var [k, v] of x) {
     var v1 = fm(v, k, x);
-    if (ft(v1, k, x)) concat$(a, v1);
+    if (ft(v1, k, x)) mapConcat$(a, v1);
     else a.set(k, v1);
   }
   return a;
@@ -855,19 +795,18 @@ export function flatMap<K>(x: Entries<K, any>, fm: MapFunction<K, any, any> | nu
 
 
 import {zip as mapZip} from "extra-map";
-import type {mapFn, tillFn, Entries} from "./_types";
 
 /**
- * Combines matching entries from all entries.
- * @param xs n entries
+ * Combine matching entries from all entries.
+ * @param xs all entries
  * @param fm map function (vs, k)
- * @param ft till function (dones) (some)
+ * @param ft end function (dones) [some]
  * @param vd default value
+ * @returns fm([x₀[k₀], x₁[k₀], ...]), fm([x₀[k₁], x₁[k₁], ...]), ...
  */
-function zip<T, U, V=U>(xs: Entries<T, U>[], fm: mapFn<T, U[], U[]|V>=null, ft: tillFn=null, vd?: U): Entries<T, U[]|V> {
+export function zip<K, V, W=V>(xs: Entries<K, V>[], fm: MapFunction<K, V[], V[]|W> | null=null, ft: EndFunction=null, vd?: V): Entries<K, V[]|W> {
   return mapZip(xs.map(x => new Map(x)), fm, ft, vd);
 }
-export default zip;
 
 
 
@@ -881,7 +820,7 @@ export default zip;
  * @param ft test function (v, k, x)
  * @returns [satisfies, doesnt]
  */
-export function partition<K, T>(x: Entries<K, T>, ft: TestFunction<K, T>): [Entries<K, T>, Entries<K, T>] {
+export function partition<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): [Entries<K, V>, Entries<K, V>] {
   var t = [], f = [];
   for (var [k, v] of x) {
     if (ft(v, k, x)) t.push([k, v]);
@@ -892,12 +831,12 @@ export function partition<K, T>(x: Entries<K, T>, ft: TestFunction<K, T>): [Entr
 
 
 /**
- * Segregate values by similarity.
+ * Segregate entries by similarity.
  * @param x entries
  * @param fm map function (v, k, x)
  * @returns Map \{key ⇒ entries\}
  */
-export function partitionAs<K, T, U=T>(x: Entries<K, T>, fm: MapFunction<K, T, T|U>): Map<T|U, Entries<K, T>> {
+export function partitionAs<K, V, W=V>(x: Entries<K, V>, fm: MapFunction<K, V, V|W>): Map<V|W, Entries<K, V>> {
   var fm = fm || IDENTITY;
   var a  = new Map();
   for (var [k, v] of x) {
@@ -910,18 +849,17 @@ export function partitionAs<K, T, U=T>(x: Entries<K, T>, fm: MapFunction<K, T, T
 
 
 import {chunk as mapChunk} from "extra-map";
-import type {Entries} from "./_types";
 
 /**
- * Breaks entries into chunks of given size.
+ * Break entries into chunks of given size.
  * @param x entries
- * @param n chunk size (1)
- * @param s chunk step (n)
+ * @param n chunk size [1]
+ * @param s chunk step [n]
+ * @returns [x[0..n], x[s..s+n], x[2s..2s+n], ...]
  */
-function chunk<T, U>(x: Entries<T, U>, n: number=1, s: number=n): Entries<T, U>[] {
+export function chunk<K, V>(x: Entries<K, V>, n: number=1, s: number=n): Entries<K, V>[] {
   return mapChunk(new Map(x), n, s);
 }
-export default chunk;
 
 
 
@@ -930,16 +868,15 @@ export default chunk;
 // -------
 
 import {concat as mapConcat} from "extra-map";
-import type {Entries} from "./_types";
 
 /**
- * Appends entries from maps, preferring last.
- * @param xs n entries
+ * Append entries from all entries, preferring last.
+ * @param xs all entries
+ * @returns x₀ ∪ x₁ ∪ ... | [x₀, x₁, ...] = xs
  */
-function concat<T, U>(...xs: Entries<T, U>[]): Entries<T, U> {
+export function concat<K, V>(...xs: Entries<K, V>[]): Entries<K, V> {
   return mapConcat(...xs);
 }
-export default concat;
 
 
 /**
@@ -947,9 +884,9 @@ export default concat;
  * @param x entries
  * @param sep separator [,]
  * @param asc associator [=]
- * @returns "$\{k₀\}=$\{v₀\}$\{sep\}$\{k₁\}=$\{v₁\}..." | [kᵢ, vᵢ] ∈ x
+ * @returns "$\{k₀\}=$\{v₀\},$\{k₁\}=$\{v₁\}..." | [kᵢ, vᵢ] ∈ x
  */
-export function join<K, T>(x: Entries<K, T>, sep: string=",", asc: string="="): string {
+export function join<K, V>(x: Entries<K, V>, sep: string=",", asc: string="="): string {
   var a = "";
   for (var [k, v] of x)
     a += k + asc + v + sep;
@@ -963,85 +900,79 @@ export function join<K, T>(x: Entries<K, T>, sep: string=",", asc: string="="): 
 // --------------
 
 import {isDisjoint as mapIsDisjoint} from "extra-map";
-import type {Entries} from "./_types";
 
 /**
- * Checks if entries have no common keys.
+ * Check if entries have no common keys.
  * @param x entries
  * @param y another entries
+ * @returns x ∩ y = Φ?
  */
-function isDisjoint<T, U>(x: Entries<T, U>, y: Entries<T, U>): boolean {
+export function isDisjoint<K, V>(x: Entries<K, V>, y: Entries<K, V>): boolean {
   return mapIsDisjoint(new Map(x), y);
 }
-export default isDisjoint;
 
 
 import {unionKeys as mapUnionKeys} from "extra-map";
-import type {Entries} from "./_types";
 
 /**
- * Gives keys present in any entries.
- * @param xs n entries
+ * Obtain keys present in any entries.
+ * @param xs all entries
+ * @returns \{k₀, k₁, ...\} | [kᵢ, vᵢ] ∈ x₀ ∪ x₁, ...; [x₀, x₁, ...] = xs
  */
-function unionKeys<T, U>(...xs: Entries<T, U>[]): Set<T> {
+export function unionKeys<K, V>(...xs: Entries<K, V>[]): Set<K> {
   return mapUnionKeys(...xs);
 }
-export default unionKeys;
 
 
 import {union as mapUnion} from "extra-map";
-import type {combineFn, Entries} from "./_types";
 
 /**
- * Gives entries present in any entries.
+ * Obtain entries present in any entries.
  * @param x entries
  * @param y another entries
  * @param fc combine function (a, b)
+ * @returns x ∪ y = \{[kᵢ, vᵢ] | [kᵢ, vᵢ] ∈ x or [kᵢ, vᵢ] ∈ y\}
  */
-function union<T, U>(x: Entries<T, U>, y: Entries<T, U>, fc: combineFn<U>=null): Entries<T, U> {
+export function union<K, V>(x: Entries<K, V>, y: Entries<K, V>, fc: CombineFunction<V> | null=null): Entries<K, V> {
   return mapUnion(x, y, fc);
 }
-export default union;
 
 
 import {intersection as mapIntersection} from "extra-map";
-import type {combineFn, Entries} from "./_types";
 
 /**
- * Gives entries present in both entries.
+ * Obtain entries present in both entries.
  * @param x entries
  * @param y another entries
  * @param fc combine function (a, b)
+ * @returns x ∩ y = \{[kᵢ, vᵢ] | [kᵢ, vᵢ] ∈ x and [kᵢ, vᵢ] ∈ y\}
  */
-function intersection<T, U>(x: Entries<T, U>, y: Entries<T, U>, fc: combineFn<U>=null): Entries<T, U> {
+export function intersection<K, V>(x: Entries<K, V>, y: Entries<K, V>, fc: CombineFunction<V> | null=null): Entries<K, V> {
   return mapIntersection(new Map(x), y, fc);
 }
-export default intersection;
 
 
 import {difference as mapDifference} from "extra-map";
-import type {Entries} from "./_types";
 
 /**
- * Gives entries not present in another.
+ * Obtain entries not present in another entries.
  * @param x entries
  * @param y another entries
+ * @returns x = x - y = \{[kᵢ, vᵢ] | [kᵢ, vᵢ] ∈ x, [kᵢ, *] ∉ y\}
  */
-function difference<T, U>(x: Entries<T, U>, y: Entries<T, U>): Entries<T, U> {
+export function difference<K, V>(x: Entries<K, V>, y: Entries<K, V>): Entries<K, V> {
   return mapDifference(x, y);
 }
-export default difference;
 
 
 import {symmetricDifference as mapSymmetricSifference} from "extra-map";
-import type {Entries} from "./_types";
 
 /**
- * Gives entries not present in both entries.
+ * Obtain entries not present in both entries.
  * @param x entries
  * @param y another entries
+ * @returns x = x-y ∪ y-x
  */
-function symmetricDifference<T, U>(x: Entries<T, U>, y: Entries<T, U>): Entries<T, U> {
+export function symmetricDifference<K, V>(x: Entries<K, V>, y: Entries<K, V>): Entries<K, V> {
   return mapSymmetricSifference(x, y);
 }
-export default symmetricDifference;
