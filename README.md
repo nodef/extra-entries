@@ -153,6 +153,7 @@ var x = [['a', 1], ['b', 2], ['c', 3]];
 
 [![](https://img.youtube.com/vi/5UABeDXf_iE/maxresdefault.jpg)](https://www.youtube.com/watch?v=5UABeDXf_iE)<br>
 [![ORG](https://img.shields.io/badge/org-nodef-green?logo=Org)](https://nodef.github.io)
+[![DOI](https://zenodo.org/badge/133400406.svg)](https://zenodo.org/badge/latestdoi/133400406)
 [![Coverage Status](https://coveralls.io/repos/github/nodef/extra-entries/badge.svg?branch=master)](https://coveralls.io/github/nodef/extra-entries?branch=master)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/4624983540e6b87358dc/test_coverage)](https://codeclimate.com/github/nodef/extra-entries/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/4624983540e6b87358dc/maintainability)](https://codeclimate.com/github/nodef/extra-entries/maintainability)
