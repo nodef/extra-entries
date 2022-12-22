@@ -1,7 +1,7 @@
 {
   "name": "extra-entries",
-  "version": "3.0.5",
-  "description": "Entries is a list of key-value pairs, with unique keys.",
+  "version": "3.0.6",
+  "description": "A collection of functions for operating upon Entries.",
   "main": "index.js",
   "module": "index.mjs",
   "sideEffects": false,
