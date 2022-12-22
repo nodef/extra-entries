@@ -6,8 +6,25 @@ import {
   is as iterableIs,
 } from "extra-iterable";
 import {
+  randomValue as arrayRandomValue,
+} from "extra-array";
+import {
   compare as mapCompare,
   swap$   as mapSwap$,
+  subsets as mapSubsets,
+  randomSubset as mapRandomSubset,
+  hasSubset    as mapHasSubset,
+  flat    as mapFlat,
+  concat  as mapConcat,
+  concat$ as mapConcat$,
+  zip     as mapZip,
+  chunk   as mapChunk,
+  isDisjoint   as mapIsDisjoint,
+  unionKeys    as mapUnionKeys,
+  union        as mapUnion,
+  intersection as mapIntersection,
+  difference   as mapDifference,
+  symmetricDifference as mapSymmetricSifference,
 } from "extra-map";
 
 
@@ -417,8 +434,6 @@ export function rangeEntries<K, V, W=V>(x: Entries<K, V>, fc: CompareFunction<V|
 // ARRANGEMENTS
 // ------------
 
-import {subsets as mapSubsets} from "extra-map";
-
 /**
  * List all possible subsets.
  * @param x entries
@@ -429,8 +444,6 @@ export function* subsets<K, V>(x: Entries<K, V>, n: number=-1): Iterable<Entries
   yield* mapSubsets(new Map(x), n);
 }
 
-
-import {randomValue as arrayRandomValue} from "extra-array";
 
 /**
  * Pick an arbitrary key.
@@ -464,8 +477,6 @@ export function randomEntry<K, V>(x: Entries<K, V>, fr: ReadFunction<number>=Mat
   return arrayRandomValue([...x], fr);
 }
 
-
-import {randomSubset as mapRandomSubset} from "extra-map";
 
 /**
  * Pick an arbitrary subset.
@@ -527,8 +538,6 @@ export function hasEntry<K, V, W=V>(x: Entries<K, V>, e: [K, V], fc: CompareFunc
   return fc(u1, v1)===0;
 }
 
-
-import {hasSubset as mapHasSubset} from "extra-map";
 
 /**
  * Check if entries has a subset.
@@ -748,8 +757,6 @@ export function* rejectAt<K, V>(x: Entries<K, V>, ks: K[]): Entries<K, V> {
 }
 
 
-import {flat as mapFlat} from "extra-map";
-
 /**
  * Flatten nested entries to given depth.
  * @param x nested entries
@@ -762,8 +769,6 @@ export function flat<K>(x: Entries<K, any>, n: number=-1, fm: MapFunction<K, any
   return mapFlat(x as Map<K, any>, n, fm, ft || iterableIs);
 }
 
-
-import {concat$ as mapConcat$} from "extra-map";
 
 /**
  * Flatten nested entries, based on map function.
@@ -784,8 +789,6 @@ export function flatMap<K>(x: Entries<K, any>, fm: MapFunction<K, any, any> | nu
   return a;
 }
 
-
-import {zip as mapZip} from "extra-map";
 
 /**
  * Combine matching entries from all entries.
@@ -839,8 +842,6 @@ export function partitionAs<K, V, W=V>(x: Entries<K, V>, fm: MapFunction<K, V, V
 }
 
 
-import {chunk as mapChunk} from "extra-map";
-
 /**
  * Break entries into chunks of given size.
  * @param x entries
@@ -857,8 +858,6 @@ export function chunk<K, V>(x: Entries<K, V>, n: number=1, s: number=n): Entries
 
 // COMBINE
 // -------
-
-import {concat as mapConcat} from "extra-map";
 
 /**
  * Append entries from all entries, preferring last.
@@ -890,8 +889,6 @@ export function join<K, V>(x: Entries<K, V>, sep: string=",", asc: string="="): 
 // SET OPERATIONS
 // --------------
 
-import {isDisjoint as mapIsDisjoint} from "extra-map";
-
 /**
  * Check if entries have no common keys.
  * @param x entries
@@ -903,8 +900,6 @@ export function isDisjoint<K, V>(x: Entries<K, V>, y: Entries<K, V>): boolean {
 }
 
 
-import {unionKeys as mapUnionKeys} from "extra-map";
-
 /**
  * Obtain keys present in any entries.
  * @param xs all entries
@@ -914,8 +909,6 @@ export function unionKeys<K, V>(...xs: Entries<K, V>[]): Set<K> {
   return mapUnionKeys(...xs);
 }
 
-
-import {union as mapUnion} from "extra-map";
 
 /**
  * Obtain entries present in any entries.
@@ -929,8 +922,6 @@ export function union<K, V>(x: Entries<K, V>, y: Entries<K, V>, fc: CombineFunct
 }
 
 
-import {intersection as mapIntersection} from "extra-map";
-
 /**
  * Obtain entries present in both entries.
  * @param x entries
@@ -943,8 +934,6 @@ export function intersection<K, V>(x: Entries<K, V>, y: Entries<K, V>, fc: Combi
 }
 
 
-import {difference as mapDifference} from "extra-map";
-
 /**
  * Obtain entries not present in another entries.
  * @param x entries
@@ -955,8 +944,6 @@ export function difference<K, V>(x: Entries<K, V>, y: Entries<K, V>): Entries<K,
   return mapDifference(x, y);
 }
 
-
-import {symmetricDifference as mapSymmetricSifference} from "extra-map";
 
 /**
  * Obtain entries not present in both entries.
