@@ -13,6 +13,26 @@ import {
 
 
 
+// RE-EXPORTS
+// ==========
+
+export {
+  // About
+  is,
+  // Size
+  length as size,
+  length,
+  isEmpty,
+  // Part
+  head,
+  tail,
+  take,
+  drop,
+} from "extra-iterable";
+
+
+
+
 // TYPES
 // =====
 
@@ -105,10 +125,6 @@ export type EndFunction = (dones: boolean[]) => boolean;
 // ABOUT
 // -----
 
-// Check if value is entries.
-export {is} from "extra-iterable";
-
-
 /**
  * List all keys.
  * @param x entries
@@ -178,18 +194,6 @@ export function compare<K, V, W=V>(x: Entries<K, V>, y: Entries<K, V>, fc: Compa
 export function isEqual<K, V, W=V>(x: Entries<K, V>, y: Entries<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): boolean {
   return compare(x, y, fc, fm)===0;
 }
-
-
-
-
-// SIZE
-// ----
-
-export {
-  length as size,
-  length,
-  isEmpty,
-} from "extra-iterable";
 
 
 
@@ -406,19 +410,6 @@ export function rangeEntries<K, V, W=V>(x: Entries<K, V>, fc: CompareFunction<V|
   }
   return [[mk, mu], [nk, nu]];
 }
-
-
-
-
-// PART
-// ----
-
-export {
-  head,
-  tail,
-  take,
-  drop,
-} from "extra-iterable";
 
 
 
