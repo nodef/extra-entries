@@ -333,7 +333,7 @@ export function count<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): number {
  * @param fm map function (v, k, x)
  * @returns Map \{value ⇒ count\}
  */
-export function countAs<K, V, W=V>(x: Entries<K, V>, fm: MapFunction<K, V, V|W>): Map<V|W, number> {
+export function countAs<K, V, W=V>(x: Entries<K, V>, fm: MapFunction<K, V, V|W> | null=null): Map<V|W, number> {
   var fm = fm || IDENTITY;
   var a  = new Map();
   for (var [k, v] of x) {
@@ -485,7 +485,7 @@ export function randomEntry<K, V>(x: Entries<K, V>, fr: ReadFunction<number>=Mat
  * @param fr random number generator ([0, 1))
  * @returns \{[kᵢ, vᵢ], [kⱼ, vⱼ], ...\} | [kᵢ, vᵢ], [kⱼ, vⱼ], ... ∈ x; |\{[kᵢ, vᵢ], [kⱼ, vⱼ], ...\}| = |x| if n<0 else n
  */
-export function subset<K, V>(x: Entries<K, V>, n: number=-1, fr: ReadFunction<number> | null=Math.random): Entries<K, V> {
+export function randomSubset<K, V>(x: Entries<K, V>, n: number=-1, fr: ReadFunction<number> | null=Math.random): Entries<K, V> {
   return mapRandomSubset(new Map(x), n, fr);
 }
 
@@ -649,7 +649,7 @@ export function* searchValueAll<K, V, W=V>(x: Entries<K, V>, v: V, fc: CompareFu
  * @param x entries
  * @param fp process function (v, k, x)
  */
-export function forEach<K, T>(x: Entries<K, T>, fp: ProcessFunction<K, T>): void {
+export function forEach<K, V>(x: Entries<K, V>, fp: ProcessFunction<K, V>): void {
   for (var [k, v] of x)
     fp(v, k, x);
 }

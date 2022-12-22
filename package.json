@@ -1,6 +1,6 @@
 {
   "name": "extra-entries",
-  "version": "4.0.4",
+  "version": "3.0.5",
   "description": "Entries is a list of key-value pairs, with unique keys.",
   "main": "index.js",
   "module": "index.mjs",
@@ -10,7 +10,7 @@
     "import": "./index.mjs"
   },
   "scripts": {
-    "test": "exit",
+    "test": "jest",
     "build": "node ./build",
     "publish-docs": "node ./build publish-docs",
     "publish-packages": "node ./build publish-packages"
