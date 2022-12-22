@@ -454,6 +454,7 @@ export function* subsets<K, V>(x: Entries<K, V>, n: number=-1): Iterable<Entries
 export function randomKey<K, V>(x: Entries<K, V>, fr: ReadFunction<number>=Math.random): K {
   return arrayRandomValue([...keys(x)], fr);
 }
+export {randomKey as key};
 
 
 /**
@@ -465,6 +466,7 @@ export function randomKey<K, V>(x: Entries<K, V>, fr: ReadFunction<number>=Math.
 export function randomValue<K, V>(x: Entries<K, V>, fr: ReadFunction<number>=Math.random): V {
   return arrayRandomValue([...values(x)], fr);
 }
+export {randomValue as value};
 
 
 /**
@@ -476,6 +478,7 @@ export function randomValue<K, V>(x: Entries<K, V>, fr: ReadFunction<number>=Mat
 export function randomEntry<K, V>(x: Entries<K, V>, fr: ReadFunction<number>=Math.random): [K, V] {
   return arrayRandomValue([...x], fr);
 }
+export {randomEntry as entry};
 
 
 /**
@@ -488,6 +491,7 @@ export function randomEntry<K, V>(x: Entries<K, V>, fr: ReadFunction<number>=Mat
 export function randomSubset<K, V>(x: Entries<K, V>, n: number=-1, fr: ReadFunction<number> | null=Math.random): Entries<K, V> {
   return mapRandomSubset(new Map(x), n, fr);
 }
+export {randomSubset as subset};
 
 
 
