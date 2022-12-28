@@ -25,7 +25,7 @@ is exposed as `extra_entries` standalone variable and can be loaded from
 
 [Entries]: https://github.com/nodef/extra-entries/wiki/Entries
 [iterable]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
-[jsDelivr CDN]: https://cdn.jsdelivr.net/npm/extra-iterable.web/index.js
+[jsDelivr CDN]: https://cdn.jsdelivr.net/npm/extra-entries.web/index.js
 
 <br>
 
