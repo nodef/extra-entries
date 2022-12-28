@@ -461,7 +461,7 @@ export {randomKey as key};
  * Pick an arbitrary value.
  * @param x entries
  * @param fr random number generator ([0, 1))
- * @returns [kᵢ, vᵢ] | [kᵢ, vᵢ] ∈ x
+ * @returns vᵢ | [kᵢ, vᵢ] ∈ x
  */
 export function randomValue<K, V>(x: Entries<K, V>, fr: ReadFunction<number>=Math.random): V {
   return arrayRandomValue([...values(x)], fr);
@@ -488,7 +488,7 @@ export {randomEntry as entry};
  * @param fr random number generator ([0, 1))
  * @returns \{[kᵢ, vᵢ], [kⱼ, vⱼ], ...\} | [kᵢ, vᵢ], [kⱼ, vⱼ], ... ∈ x; |\{[kᵢ, vᵢ], [kⱼ, vⱼ], ...\}| = |x| if n<0 else n
  */
-export function randomSubset<K, V>(x: Entries<K, V>, n: number=-1, fr: ReadFunction<number> | null=Math.random): Entries<K, V> {
+export function randomSubset<K, V>(x: Entries<K, V>, n: number=-1, fr: ReadFunction<number>=Math.random): Entries<K, V> {
   return mapRandomSubset(new Map(x), n, fr);
 }
 export {randomSubset as subset};
@@ -625,7 +625,7 @@ export function searchValue<K, V, W=V>(x: Entries<K, V>, v: V, fc: CompareFuncti
 
 
 /**
- * Finds keys with given value.
+ * Find keys with given value.
  * @param x entries
  * @param v search value
  * @param fc compare function (a, b)
@@ -676,6 +676,7 @@ export function some<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): boolean {
  * Check if all values satisfy a test.
  * @param x entries
  * @param ft test function (v, k, x)
+ * @returns true if ft(vᵢ) = true for every [kᵢ, vᵢ] ∈ x
  */
 export function every<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): boolean {
   for (var [k, v] of x)
@@ -767,7 +768,7 @@ export function* rejectAt<K, V>(x: Entries<K, V>, ks: K[]): Entries<K, V> {
  * @param n maximum depth [-1 ⇒ all]
  * @param fm map function (v, k, x)
  * @param ft test function for flatten (v, k, x) [is]
- * @returns flat map
+ * @returns flat entries
  */
 export function flat<K>(x: Entries<K, any>, n: number=-1, fm: MapFunction<K, any, any> | null=null, ft: TestFunction<K, any> | null=null): Entries<K, any> {
   return mapFlat(x as Map<K, any>, n, fm, ft || iterableIs);
