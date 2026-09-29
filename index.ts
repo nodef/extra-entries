@@ -1,13 +1,13 @@
 import {
   IDENTITY,
   COMPARE,
-} from "extra-function";
+} from "@nodef/extra-function";
 import {
   is as iterableIs,
-} from "extra-iterable";
+} from "@nodef/extra-iterable";
 import {
   randomValue as arrayRandomValue,
-} from "extra-array";
+} from "@nodef/extra-array";
 import {
   compare as mapCompare,
   swap$   as mapSwap$,
@@ -25,7 +25,7 @@ import {
   intersection as mapIntersection,
   difference   as mapDifference,
   symmetricDifference as mapSymmetricSifference,
-} from "extra-map";
+} from "@nodef/extra-map";
 
 
 
@@ -45,7 +45,7 @@ export {
   tail,
   take,
   drop,
-} from "extra-iterable";
+} from "@nodef/extra-iterable";
 
 
 
@@ -112,7 +112,7 @@ export type TestFunction<K, V> = (v: V, k: K, x: Entries<K, V>) => boolean;
  * @param x entries containing the value
  * @returns transformed value
  */
-export type MapFunction<K, V, W> = (v: V, k: K, x: Entries<K, V>) => W;
+export type MapFunction<K, V, W> = (v: V, k: K, x: Entries<K, V> | null) => W;
 
 
 /**
@@ -148,7 +148,7 @@ export type EndFunction = (dones: boolean[]) => boolean;
  * @returns k₀, k₁, ... | [kᵢ, vᵢ] ∈ x
  */
 export function* keys<K, V>(x: Entries<K, V>): Iterable<K> {
-  for (var [k] of x)
+  for (const [k] of x)
     yield k;
 }
 
@@ -159,7 +159,7 @@ export function* keys<K, V>(x: Entries<K, V>): Iterable<K> {
  * @returns v₀, v₁, ... | [kᵢ, vᵢ] ∈ x
  */
 export function* values<K, V>(x: Entries<K, V>): Iterable<V> {
-  for (var [, v] of x)
+  for (const [, v] of x)
     yield v;
 }
 
@@ -175,9 +175,9 @@ export function* values<K, V>(x: Entries<K, V>): Iterable<V> {
  * @returns x as entries
  */
 export function* fromLists<K, V>(x: Lists<K, V>): Entries<K, V> {
-  var [ks, vs] = x;
-  var iv = vs[Symbol.iterator]();
-  for (var k of ks)
+  const [ks, vs] = x;
+  const iv = vs[Symbol.iterator]();
+  for (const k of ks)
     yield [k, iv.next().value];
 }
 
@@ -224,8 +224,8 @@ export function isEqual<K, V, W=V>(x: Entries<K, V>, y: Entries<K, V>, fc: Compa
  * @param k key
  * @returns x[k]
  */
-export function get<K, V>(x: Entries<K, V>, k: K): V {
-  for (var [j, u] of x)
+export function get<K, V>(x: Entries<K, V>, k: K): V | undefined {
+  for (const [j, u] of x)
     if (j===k) return u;
 }
 
@@ -237,11 +237,11 @@ export function get<K, V>(x: Entries<K, V>, k: K): V {
  * @returns x[k₀], x[k₁], ... | [k₀, k₁, ...] = ks
  */
 export function getAll<K, V>(x: Entries<K, V>, ks: K[]): Iterable<V> {
-  var m = new Map();
-  for (var [k, v] of x)
+  const m = new Map();
+  for (const [k, v] of x)
     if (ks.includes(k)) m.set(k, v);
-  var a = [];
-  for (var k of ks)
+  const a = [];
+  for (const k of ks)
     a.push(m.get(k));
   return a;
 }
@@ -253,10 +253,11 @@ export function getAll<K, V>(x: Entries<K, V>, ks: K[]): Iterable<V> {
  * @param p path
  * @returns x[k₀][k₁][...] | [k₀, k₁, ...] = p
  */
-export function getPath<K>(x: Entries<K, any>, p: K[]): any {
-  for (var k of p)
-    x = iterableIs(x)? get(x, k) : undefined;
-  return x;
+export function getPath<K>(x: Entries<K, unknown>, p: K[]): unknown {
+  let xany: unknown = x;
+  for (const k of p)
+    xany = iterableIs(xany)? get(xany as Entries<K, unknown>, k) : undefined;
+  return xany;
 }
 
 
@@ -266,7 +267,7 @@ export function getPath<K>(x: Entries<K, any>, p: K[]): any {
  * @param p search path
  * @returns x[k₀][k₁][...] exists? | [k₀, k₁, ...] = p
  */
-export function hasPath<K>(x: Entries<K, any>, p: K[]): boolean {
+export function hasPath<K>(x: Entries<K, unknown>, p: K[]): boolean {
   return getPath(x, p)!==undefined;
 }
 
@@ -279,7 +280,7 @@ export function hasPath<K>(x: Entries<K, any>, p: K[]): boolean {
  * @returns x' | x' = x; x'[k] = v
  */
 export function* set<K, V>(x: Entries<K, V>, k: K, v: V): Entries<K, V> {
-  for (var [j, u] of x)
+  for (const [j, u] of x)
     yield j===k? [j, v] : [j, u];
 }
 
@@ -303,7 +304,7 @@ export function swap<K, V>(x: Entries<K, V>, k: K, l: K): Entries<K, V> {
  * @returns x \\: [k]
  */
 export function* remove<K, V>(x: Entries<K, V>, k: K): Entries<K, V> {
-  for (var [j, u] of x)
+  for (const [j, u] of x)
     if (j!==k) yield [j, u];
 }
 
@@ -320,8 +321,8 @@ export function* remove<K, V>(x: Entries<K, V>, k: K): Entries<K, V> {
  * @returns Σtᵢ | tᵢ = 1 if ft(vᵢ) else 0; [kᵢ, vᵢ] ∈ x
  */
 export function count<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): number {
-  var a = 0;
-  for (var [k, v] of x)
+  let a = 0;
+  for (const [k, v] of x)
     if (ft(v, k, x)) ++a;
   return a;
 }
@@ -334,11 +335,11 @@ export function count<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): number {
  * @returns Map \{value ⇒ count\}
  */
 export function countAs<K, V, W=V>(x: Entries<K, V>, fm: MapFunction<K, V, V|W> | null=null): Map<V|W, number> {
-  var fm = fm || IDENTITY;
-  var a  = new Map();
-  for (var [k, v] of x) {
-    var w = fm(v, k, x);
-    var n = a.get(w) || 0;
+  fm = fm || IDENTITY;
+  const a  = new Map();
+  for (const [k, v] of x) {
+    const w = fm(v, k, x);
+    const n = a.get(w) || 0;
     a.set(w, n+1);
   }
   return a;
@@ -401,7 +402,7 @@ export function maxEntry<K, V, W=V>(x: Entries<K, V>, fc: CompareFunction<V|W> |
  * @returns [min_value, max_value]
  */
 export function range<K, V, W=V>(x: Entries<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): [V, V] {
-  var [a, b] = rangeEntries(x, fc, fm);
+  const [a, b] = rangeEntries(x, fc, fm);
   return [a[1], b[1]];
 }
 
@@ -414,18 +415,18 @@ export function range<K, V, W=V>(x: Entries<K, V>, fc: CompareFunction<V|W> | nu
  * @returns [min_entry, max_entry]
  */
 export function rangeEntries<K, V, W=V>(x: Entries<K, V>, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): [[K, V], [K, V]] {
-  var fc = fc || COMPARE;
-  var fm = fm || IDENTITY;
-  var mk: K, mu: V, mv: V|W;
-  var nk: K, nu: V, nv: V|W;
-  var i = 0;
-  for (var [k, u] of x) {
-    var v = fm(u, k, x);
-    if (i===0 || fc(v, mv)<0) { mk = k; mu = u; mv = v; }
-    if (i===0 || fc(v, nv)>0) { nk = k; nu = u; nv = v; }
+  fc = fc || COMPARE;
+  fm = fm || IDENTITY;
+  let mk: K | undefined, mu: V | undefined, mv: V|W | undefined;
+  let nk: K | undefined, nu: V | undefined, nv: V|W | undefined;
+  let i = 0;
+  for (const [k, u] of x) {
+    const v = fm(u, k, x);
+    if (i===0 || fc(v, mv as V|W)<0) { mk = k; mu = u; mv = v; }
+    if (i===0 || fc(v, nv as V|W)>0) { nk = k; nu = u; nv = v; }
     ++i;
   }
-  return [[mk, mu], [nk, nu]];
+  return [[mk as K, mu as V], [nk as K, nu as V]];
 }
 
 
@@ -506,7 +507,7 @@ export {randomSubset as subset};
  * @returns [k, *] ∈ x?
  */
 export function has<K, V>(x: Entries<K, V>, k: K): boolean {
-  for (var [j] of x)
+  for (const [j] of x)
     if (j===k) return true;
   return false;
 }
@@ -534,11 +535,11 @@ export function hasValue<K, V, W=V>(x: Entries<K, V>, v: V, fc: CompareFunction<
  * @returns [k, v] ∈ x? | [k, v] = e
  */
 export function hasEntry<K, V, W=V>(x: Entries<K, V>, e: [K, V], fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): boolean {
-  var fc = fc || COMPARE;
-  var fm = fm || IDENTITY;
-  var [k, v] = e, u = get(x, k);
-  var u1 = fm(u, k, x);
-  var v1 = fm(v, k, x);
+  fc = fc || COMPARE;
+  fm = fm || IDENTITY;
+  const [k, v] = e, u = get(x, k);
+  const u1 = fm(u as V, k, x);
+  const v1 = fm(v, k, x);
   return fc(u1, v1)===0;
 }
 
@@ -562,8 +563,8 @@ export function hasSubset<K, V, W=V>(x: Entries<K, V>, y: Entries<K, V>, fc: Com
  * @param ft test function (v, k, x)
  * @returns first v | ft(v) = true; [k, v] ∈ x
  */
-export function find<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): V {
-  for (var [k, v] of x)
+export function find<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): V | undefined {
+  for (const [k, v] of x)
     if (ft(v, k, x)) return v;
 }
 
@@ -576,7 +577,7 @@ export function find<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): V {
  * @returns v₀, v₁, ... | ft(vᵢ) = true; [kᵢ, vᵢ] ∈ x
  */
 export function* findAll<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): Iterable<V> {
-  for (var [k, v] of x)
+  for (const [k, v] of x)
     if (ft(v, k, x)) yield v;
 }
 
@@ -587,8 +588,8 @@ export function* findAll<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): Iterab
  * @param ft test function (v, k, x)
  * @returns key of entry
  */
-export function search<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): K {
-  for (var [k, v] of x)
+export function search<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): K | undefined {
+  for (const [k, v] of x)
     if (ft(v, k, x)) return k;
 }
 
@@ -600,7 +601,7 @@ export function search<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): K {
  * @returns keys of entries
  */
 export function* searchAll<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): Iterable<K> {
-  for (var [k, v] of x)
+  for (const [k, v] of x)
     if (ft(v, k, x)) yield k;
 }
 
@@ -613,12 +614,12 @@ export function* searchAll<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): Iter
  * @param fm map function (v, k, x)
  * @returns key of value
  */
-export function searchValue<K, V, W=V>(x: Entries<K, V>, v: V, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): K {
-  var fc = fc || COMPARE;
-  var fm = fm || IDENTITY;
-  var w = fm(v, null, null);
-  for (var [k, u] of x) {
-    var wx = fm(u, k, x);
+export function searchValue<K, V, W=V>(x: Entries<K, V>, v: V, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): K | undefined {
+  fc = fc || COMPARE;
+  fm = fm || IDENTITY;
+  const w = fm(v, null as K, null);
+  for (const [k, u] of x) {
+    const wx = fm(u, k, x);
     if (fc(wx, w)===0) return k;
   }
 }
@@ -633,11 +634,11 @@ export function searchValue<K, V, W=V>(x: Entries<K, V>, v: V, fc: CompareFuncti
  * @returns keys of value
  */
 export function* searchValueAll<K, V, W=V>(x: Entries<K, V>, v: V, fc: CompareFunction<V|W> | null=null, fm: MapFunction<K, V, V|W> | null=null): Iterable<K> {
-  var fc = fc || COMPARE;
-  var fm = fm || IDENTITY;
-  var w  = fm(v, null, null);
-  for(var [k, u] of x) {
-    var wx = fm(u, k, x);
+  fc = fc || COMPARE;
+  fm = fm || IDENTITY;
+  const w  = fm(v, null as K, null);
+  for(const [k, u] of x) {
+    const wx = fm(u, k, x);
     if (fc(wx, w)===0) yield k;
   }
 }
@@ -654,7 +655,7 @@ export function* searchValueAll<K, V, W=V>(x: Entries<K, V>, v: V, fc: CompareFu
  * @param fp process function (v, k, x)
  */
 export function forEach<K, V>(x: Entries<K, V>, fp: ProcessFunction<K, V>): void {
-  for (var [k, v] of x)
+  for (const [k, v] of x)
     fp(v, k, x);
 }
 
@@ -666,7 +667,7 @@ export function forEach<K, V>(x: Entries<K, V>, fp: ProcessFunction<K, V>): void
  * @returns true if ft(vᵢ) = true for some [kᵢ, vᵢ] ∈ x
  */
 export function some<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): boolean {
-  for (var [k, v] of x)
+  for (const [k, v] of x)
     if (ft(v, k, x)) return true;
   return false;
 }
@@ -679,7 +680,7 @@ export function some<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): boolean {
  * @returns true if ft(vᵢ) = true for every [kᵢ, vᵢ] ∈ x
  */
 export function every<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): boolean {
-  for (var [k, v] of x)
+  for (const [k, v] of x)
     if (!ft(v, k, x)) return false;
   return true;
 }
@@ -692,7 +693,7 @@ export function every<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): boolean {
  * @returns [k₀, fm(v₀)], [k₁, fm(v₁)], ... | [kᵢ, vᵢ] ∈ x
  */
 export function* map<K, V, W=V>(x: Entries<K, V>, fm: MapFunction<K, V, V|W>): Entries<K, V|W> {
-  for (var [k, v] of x)
+  for (const [k, v] of x)
     yield [k, fm(v, k, x)];
 }
 
@@ -705,12 +706,12 @@ export function* map<K, V, W=V>(x: Entries<K, V>, fm: MapFunction<K, V, V|W>): E
  * @returns fr(fr(acc, v₀), v₁)... | fr(acc, v₀) = v₀ if acc not given
  */
 export function reduce<K, V, W=V>(x: Entries<K, V>, fr: ReduceFunction<K, V, V|W>, acc?: V|W): V|W {
-  var init = arguments.length <= 2;
-  for (var [k, v] of x) {
+  let init = arguments.length <= 2;
+  for (const [k, v] of x) {
     if (init) { init = false; acc = v; }
-    else acc = fr(acc, v, k, x);
+    else acc = fr(acc as V|W, v, k, x);
   }
-  return acc;
+  return acc as V|W;
 }
 
 
@@ -721,7 +722,7 @@ export function reduce<K, V, W=V>(x: Entries<K, V>, fr: ReduceFunction<K, V, V|W
  * @returns [k₀, v₀], [k₁, v₁], ... | ft(vᵢ) = true; [kᵢ, vᵢ] ∈ x
  */
 export function* filter<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): Entries<K, V> {
-  for (var [k, v] of x)
+  for (const [k, v] of x)
     if (ft(v, k, x)) yield [k, v];
 }
 
@@ -733,7 +734,7 @@ export function* filter<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): Entries
  * @returns [k₀, v₀], [k₁, v₁], ... | kᵢ ∈ ks; [kᵢ, vᵢ] ∈ x
  */
 export function* filterAt<K, V>(x: Entries<K, V>, ks: K[]): Entries<K, V> {
-  for (var [k, v] of x)
+  for (const [k, v] of x)
     if (ks.includes(k)) yield [k, v];
 }
 
@@ -745,7 +746,7 @@ export function* filterAt<K, V>(x: Entries<K, V>, ks: K[]): Entries<K, V> {
  * @returns [k₀, v₀], [k₁, v₁], ... | ft(vᵢ) = false; [kᵢ, vᵢ] ∈ x
  */
 export function* reject<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): Entries<K, V> {
-  for (var [k, v] of x)
+  for (const [k, v] of x)
     if (!ft(v, k, x)) yield [k, v];
 }
 
@@ -757,7 +758,7 @@ export function* reject<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): Entries
  * @returns [k₀, v₀], [k₁, v₁], ... | kᵢ ∉ ks; [kᵢ, vᵢ] ∈ x
  */
 export function* rejectAt<K, V>(x: Entries<K, V>, ks: K[]): Entries<K, V> {
-  for (var [k, v] of x)
+  for (const [k, v] of x)
     if (!ks.includes(k)) yield [k, v];
 }
 
@@ -770,8 +771,8 @@ export function* rejectAt<K, V>(x: Entries<K, V>, ks: K[]): Entries<K, V> {
  * @param ft test function for flatten (v, k, x) [is]
  * @returns flat entries
  */
-export function flat<K>(x: Entries<K, any>, n: number=-1, fm: MapFunction<K, any, any> | null=null, ft: TestFunction<K, any> | null=null): Entries<K, any> {
-  return mapFlat(x as Map<K, any>, n, fm, ft || iterableIs);
+export function flat<K>(x: Entries<K, unknown>, n: number=-1, fm: MapFunction<K, unknown, unknown> | null=null, ft: TestFunction<K, unknown> | null=null): Entries<K, unknown> {
+  return mapFlat(x as Map<K, unknown>, n, fm, ft || iterableIs);
 }
 
 
@@ -782,13 +783,13 @@ export function flat<K>(x: Entries<K, any>, n: number=-1, fm: MapFunction<K, any
  * @param ft test function for flatten (v, k, x) [is]
  * @returns flat entries
  */
-export function flatMap<K>(x: Entries<K, any>, fm: MapFunction<K, any, any> | null=null, ft: TestFunction<K, any> | null=null): Entries<K, any> {
-  var fm = fm || IDENTITY;
-  var ft = ft || iterableIs;
-  var a  = new Map();
-  for (var [k, v] of x) {
-    var v1 = fm(v, k, x);
-    if (ft(v1, k, x)) mapConcat$(a, v1);
+export function flatMap<K>(x: Entries<K, unknown>, fm: MapFunction<K, unknown, unknown> | null=null, ft: TestFunction<K, unknown> | null=null): Entries<K, unknown> {
+  fm = fm || IDENTITY;
+  ft = ft || iterableIs;
+  const a  = new Map();
+  for (const [k, v] of x) {
+    const v1 = fm(v, k, x);
+    if (ft(v1, k, x)) mapConcat$(a, v1 as Entries<K, unknown>);
     else a.set(k, v1);
   }
   return a;
@@ -803,7 +804,7 @@ export function flatMap<K>(x: Entries<K, any>, fm: MapFunction<K, any, any> | nu
  * @param vd default value
  * @returns fm([x₀[k₀], x₁[k₀], ...]), fm([x₀[k₁], x₁[k₁], ...]), ...
  */
-export function zip<K, V, W=V>(xs: Entries<K, V>[], fm: MapFunction<K, V[], V[]|W> | null=null, ft: EndFunction=null, vd?: V): Entries<K, V[]|W> {
+export function zip<K, V, W=V>(xs: Entries<K, V>[], fm: MapFunction<K, V[], V[]|W> | null=null, ft: EndFunction | null=null, vd?: V): Entries<K, V[]|W> {
   return mapZip(xs.map(x => new Map(x)), fm, ft, vd);
 }
 
@@ -820,8 +821,9 @@ export function zip<K, V, W=V>(xs: Entries<K, V>[], fm: MapFunction<K, V[], V[]|
  * @returns [satisfies, doesnt]
  */
 export function partition<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): [Entries<K, V>, Entries<K, V>] {
-  var t = [], f = [];
-  for (var [k, v] of x) {
+  const t: [K, V][] = [];
+  const f: [K, V][] = [];
+  for (const [k, v] of x) {
     if (ft(v, k, x)) t.push([k, v]);
     else f.push([k, v]);
   }
@@ -836,10 +838,10 @@ export function partition<K, V>(x: Entries<K, V>, ft: TestFunction<K, V>): [Entr
  * @returns Map \{key ⇒ entries\}
  */
 export function partitionAs<K, V, W=V>(x: Entries<K, V>, fm: MapFunction<K, V, V|W>): Map<V|W, Entries<K, V>> {
-  var fm = fm || IDENTITY;
-  var a  = new Map();
-  for (var [k, v] of x) {
-    var v1 = fm(v, k, x);
+  fm = fm || IDENTITY;
+  const a = new Map();
+  for (const [k, v] of x) {
+    const v1 = fm(v, k, x);
     if (!a.has(v1)) a.set(v1, []);
     a.get(v1).push([k, v]);
   }
@@ -882,8 +884,8 @@ export function concat<K, V>(...xs: Entries<K, V>[]): Entries<K, V> {
  * @returns "$\{k₀\}=$\{v₀\},$\{k₁\}=$\{v₁\}..." | [kᵢ, vᵢ] ∈ x
  */
 export function join<K, V>(x: Entries<K, V>, sep: string=",", asc: string="="): string {
-  var a = "";
-  for (var [k, v] of x)
+  let a = "";
+  for (const [k, v] of x)
     a += k + asc + v + sep;
   return a.slice(0, -sep.length);
 }

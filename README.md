@@ -1,9 +1,9 @@
 A collection of functions for operating upon Entries.<br>
-📦 [Node.js](https://www.npmjs.com/package/extra-entries),
-🌐 [Web](https://www.npmjs.com/package/extra-entries.web),
-📜 [Files](https://unpkg.com/extra-entries/),
-📰 [Docs](https://nodef.github.io/extra-entries/),
-📘 [Wiki](https://github.com/nodef/extra-entries/wiki/).
+
+▌
+📦 [JSR](https://jsr.io/@nodef/extra-entries),
+📦 [NPM](https://www.npmjs.com/package/extra-entries),
+📰 [Docs](https://jsr.io/@nodef/extra-entries/doc).
 
 [Entries] is a list of key-value pairs, with unique keys. This package
 includes common functions related to querying **about** entries, **generating**
@@ -17,37 +17,28 @@ All functions except `fromLists()` take entries as 1st parameter, and expect it
 to be [iterable]. It does not need to be an array. **Entries** are returned
 by `Array`, `Object`, `Set`, `Map`.
 
-This package is available in *Node.js* and *Web* formats. The web format
-is exposed as `extra_entries` standalone variable and can be loaded from
-[jsDelivr CDN].
-
-> Stability: [Experimental](https://www.youtube.com/watch?v=L1j93RnIxEo).
-
-[Entries]: https://github.com/nodef/extra-entries/wiki/Entries
+[Entries]: https://jsr.io/@nodef/extra-entries/doc/~/Entries
 [iterable]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
-[jsDelivr CDN]: https://cdn.jsdelivr.net/npm/extra-entries.web/index.js
 
 <br>
 
 ```javascript
-const entries = require('extra-entries');
-// import * as entries from "extra-entries";
-// import * as entries from "https://unpkg.com/extra-entries/index.mjs"; (deno)
+import * as xentries from "jsr:@nodef/extra-entries";
 
 var x = [['a', 1], ['b', 2], ['c', 3], ['d', 4], ['e', 5]];
-[...entries.filter(x, v => v % 2 === 1)];
+[...xentries.filter(x, v => v % 2 === 1)];
 // → [ [ 'a', 1 ], [ 'c', 3 ], [ 'e', 5 ] ]
 
 var x = [['a', 1], ['b', 2], ['c', -3], ['d', -4]];
-entries.some(x, v => v > 10);
+xentries.some(x, v => v > 10);
 // → false
 
 var x = [['a', 1], ['b', 2], ['c', -3], ['d', -4]];
-entries.min(x);
+xentries.min(x);
 // → -4
 
 var x = [['a', 1], ['b', 2], ['c', 3]];
-[...entries.subsets(x)].map(a => [...a]);
+[...xentries.subsets(x)].map(a => [...a]);
 // → [
 // →   [],
 // →   [ [ 'a', 1 ] ],
@@ -151,77 +142,73 @@ var x = [['a', 1], ['b', 2], ['c', 3]];
 <br>
 
 
-[![](https://img.youtube.com/vi/5UABeDXf_iE/maxresdefault.jpg)](https://www.youtube.com/watch?v=5UABeDXf_iE)<br>
+[![](https://raw.githubusercontent.com/qb40/designs/gh-pages/0/image/11.png)](https://wolfram77.github.io)<br>
 [![ORG](https://img.shields.io/badge/org-nodef-green?logo=Org)](https://nodef.github.io)
-[![DOI](https://zenodo.org/badge/133400406.svg)](https://zenodo.org/badge/latestdoi/133400406)
-[![Coverage Status](https://coveralls.io/repos/github/nodef/extra-entries/badge.svg?branch=master)](https://coveralls.io/github/nodef/extra-entries?branch=master)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/4624983540e6b87358dc/test_coverage)](https://codeclimate.com/github/nodef/extra-entries/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/4624983540e6b87358dc/maintainability)](https://codeclimate.com/github/nodef/extra-entries/maintainability)
 ![](https://ga-beacon.deno.dev/G-RC63DPBH3P:SH3Eq-NoQ9mwgYeHWxu7cw/github.com/nodef/extra-entries)
 
 
-[is]: https://github.com/nodef/extra-entries/wiki/is
-[keys]: https://github.com/nodef/extra-entries/wiki/keys
-[values]: https://github.com/nodef/extra-entries/wiki/values
-[fromLists]: https://github.com/nodef/extra-entries/wiki/fromLists
-[compare]: https://github.com/nodef/extra-entries/wiki/compare
-[isEqual]: https://github.com/nodef/extra-entries/wiki/isEqual
-[size]: https://github.com/nodef/extra-entries/wiki/size
-[isEmpty]: https://github.com/nodef/extra-entries/wiki/isEmpty
-[get]: https://github.com/nodef/extra-entries/wiki/get
-[getAll]: https://github.com/nodef/extra-entries/wiki/getAll
-[getPath]: https://github.com/nodef/extra-entries/wiki/getPath
-[hasPath]: https://github.com/nodef/extra-entries/wiki/hasPath
-[set]: https://github.com/nodef/extra-entries/wiki/set
-[swap]: https://github.com/nodef/extra-entries/wiki/swap
-[remove]: https://github.com/nodef/extra-entries/wiki/remove
-[count]: https://github.com/nodef/extra-entries/wiki/count
-[countAs]: https://github.com/nodef/extra-entries/wiki/countAs
-[min]: https://github.com/nodef/extra-entries/wiki/min
-[minEntry]: https://github.com/nodef/extra-entries/wiki/minEntry
-[max]: https://github.com/nodef/extra-entries/wiki/max
-[maxEntry]: https://github.com/nodef/extra-entries/wiki/maxEntry
-[range]: https://github.com/nodef/extra-entries/wiki/range
-[rangeEntries]: https://github.com/nodef/extra-entries/wiki/rangeEntries
-[head]: https://github.com/nodef/extra-entries/wiki/head
-[tail]: https://github.com/nodef/extra-entries/wiki/tail
-[take]: https://github.com/nodef/extra-entries/wiki/take
-[drop]: https://github.com/nodef/extra-entries/wiki/drop
-[subsets]: https://github.com/nodef/extra-entries/wiki/subsets
-[randomKey]: https://github.com/nodef/extra-entries/wiki/randomKey
-[randomEntry]: https://github.com/nodef/extra-entries/wiki/randomEntry
-[randomSubset]: https://github.com/nodef/extra-entries/wiki/randomSubset
-[has]: https://github.com/nodef/extra-entries/wiki/has
-[hasValue]: https://github.com/nodef/extra-entries/wiki/hasValue
-[hasEntry]: https://github.com/nodef/extra-entries/wiki/hasEntry
-[hasSubset]: https://github.com/nodef/extra-entries/wiki/hasSubset
-[find]: https://github.com/nodef/extra-entries/wiki/find
-[findAll]: https://github.com/nodef/extra-entries/wiki/findAll
-[search]: https://github.com/nodef/extra-entries/wiki/search
-[searchAll]: https://github.com/nodef/extra-entries/wiki/searchAll
-[searchValue]: https://github.com/nodef/extra-entries/wiki/searchValue
-[searchValueAll]: https://github.com/nodef/extra-entries/wiki/searchValueAll
-[forEach]: https://github.com/nodef/extra-entries/wiki/forEach
-[some]: https://github.com/nodef/extra-entries/wiki/some
-[every]: https://github.com/nodef/extra-entries/wiki/every
-[map]: https://github.com/nodef/extra-entries/wiki/map
-[reduce]: https://github.com/nodef/extra-entries/wiki/reduce
-[filter]: https://github.com/nodef/extra-entries/wiki/filter
-[filterAt]: https://github.com/nodef/extra-entries/wiki/filterAt
-[reject]: https://github.com/nodef/extra-entries/wiki/reject
-[rejectAt]: https://github.com/nodef/extra-entries/wiki/rejectAt
-[flat]: https://github.com/nodef/extra-entries/wiki/flat
-[flatMap]: https://github.com/nodef/extra-entries/wiki/flatMap
-[zip]: https://github.com/nodef/extra-entries/wiki/zip
-[partition]: https://github.com/nodef/extra-entries/wiki/partition
-[partitionAs]: https://github.com/nodef/extra-entries/wiki/partitionAs
-[chunk]: https://github.com/nodef/extra-entries/wiki/chunk
-[concat]: https://github.com/nodef/extra-entries/wiki/concat
-[join]: https://github.com/nodef/extra-entries/wiki/join
-[isDisjoint]: https://github.com/nodef/extra-entries/wiki/isDisjoint
-[unionKeys]: https://github.com/nodef/extra-entries/wiki/unionKeys
-[union]: https://github.com/nodef/extra-entries/wiki/union
-[intersection]: https://github.com/nodef/extra-entries/wiki/intersection
-[difference]: https://github.com/nodef/extra-entries/wiki/difference
-[symmetricDifference]: https://github.com/nodef/extra-entries/wiki/symmetricDifference
-[randomValue]: https://github.com/nodef/extra-entries/wiki/randomValue
+[is]: https://jsr.io/@nodef/extra-entries/doc/~/is
+[keys]: https://jsr.io/@nodef/extra-entries/doc/~/keys
+[values]: https://jsr.io/@nodef/extra-entries/doc/~/values
+[fromLists]: https://jsr.io/@nodef/extra-entries/doc/~/fromLists
+[compare]: https://jsr.io/@nodef/extra-entries/doc/~/compare
+[isEqual]: https://jsr.io/@nodef/extra-entries/doc/~/isEqual
+[size]: https://jsr.io/@nodef/extra-entries/doc/~/size
+[isEmpty]: https://jsr.io/@nodef/extra-entries/doc/~/isEmpty
+[get]: https://jsr.io/@nodef/extra-entries/doc/~/get
+[getAll]: https://jsr.io/@nodef/extra-entries/doc/~/getAll
+[getPath]: https://jsr.io/@nodef/extra-entries/doc/~/getPath
+[hasPath]: https://jsr.io/@nodef/extra-entries/doc/~/hasPath
+[set]: https://jsr.io/@nodef/extra-entries/doc/~/set
+[swap]: https://jsr.io/@nodef/extra-entries/doc/~/swap
+[remove]: https://jsr.io/@nodef/extra-entries/doc/~/remove
+[count]: https://jsr.io/@nodef/extra-entries/doc/~/count
+[countAs]: https://jsr.io/@nodef/extra-entries/doc/~/countAs
+[min]: https://jsr.io/@nodef/extra-entries/doc/~/min
+[minEntry]: https://jsr.io/@nodef/extra-entries/doc/~/minEntry
+[max]: https://jsr.io/@nodef/extra-entries/doc/~/max
+[maxEntry]: https://jsr.io/@nodef/extra-entries/doc/~/maxEntry
+[range]: https://jsr.io/@nodef/extra-entries/doc/~/range
+[rangeEntries]: https://jsr.io/@nodef/extra-entries/doc/~/rangeEntries
+[head]: https://jsr.io/@nodef/extra-entries/doc/~/head
+[tail]: https://jsr.io/@nodef/extra-entries/doc/~/tail
+[take]: https://jsr.io/@nodef/extra-entries/doc/~/take
+[drop]: https://jsr.io/@nodef/extra-entries/doc/~/drop
+[subsets]: https://jsr.io/@nodef/extra-entries/doc/~/subsets
+[randomKey]: https://jsr.io/@nodef/extra-entries/doc/~/randomKey
+[randomEntry]: https://jsr.io/@nodef/extra-entries/doc/~/randomEntry
+[randomSubset]: https://jsr.io/@nodef/extra-entries/doc/~/randomSubset
+[has]: https://jsr.io/@nodef/extra-entries/doc/~/has
+[hasValue]: https://jsr.io/@nodef/extra-entries/doc/~/hasValue
+[hasEntry]: https://jsr.io/@nodef/extra-entries/doc/~/hasEntry
+[hasSubset]: https://jsr.io/@nodef/extra-entries/doc/~/hasSubset
+[find]: https://jsr.io/@nodef/extra-entries/doc/~/find
+[findAll]: https://jsr.io/@nodef/extra-entries/doc/~/findAll
+[search]: https://jsr.io/@nodef/extra-entries/doc/~/search
+[searchAll]: https://jsr.io/@nodef/extra-entries/doc/~/searchAll
+[searchValue]: https://jsr.io/@nodef/extra-entries/doc/~/searchValue
+[searchValueAll]: https://jsr.io/@nodef/extra-entries/doc/~/searchValueAll
+[forEach]: https://jsr.io/@nodef/extra-entries/doc/~/forEach
+[some]: https://jsr.io/@nodef/extra-entries/doc/~/some
+[every]: https://jsr.io/@nodef/extra-entries/doc/~/every
+[map]: https://jsr.io/@nodef/extra-entries/doc/~/map
+[reduce]: https://jsr.io/@nodef/extra-entries/doc/~/reduce
+[filter]: https://jsr.io/@nodef/extra-entries/doc/~/filter
+[filterAt]: https://jsr.io/@nodef/extra-entries/doc/~/filterAt
+[reject]: https://jsr.io/@nodef/extra-entries/doc/~/reject
+[rejectAt]: https://jsr.io/@nodef/extra-entries/doc/~/rejectAt
+[flat]: https://jsr.io/@nodef/extra-entries/doc/~/flat
+[flatMap]: https://jsr.io/@nodef/extra-entries/doc/~/flatMap
+[zip]: https://jsr.io/@nodef/extra-entries/doc/~/zip
+[partition]: https://jsr.io/@nodef/extra-entries/doc/~/partition
+[partitionAs]: https://jsr.io/@nodef/extra-entries/doc/~/partitionAs
+[chunk]: https://jsr.io/@nodef/extra-entries/doc/~/chunk
+[concat]: https://jsr.io/@nodef/extra-entries/doc/~/concat
+[join]: https://jsr.io/@nodef/extra-entries/doc/~/join
+[isDisjoint]: https://jsr.io/@nodef/extra-entries/doc/~/isDisjoint
+[unionKeys]: https://jsr.io/@nodef/extra-entries/doc/~/unionKeys
+[union]: https://jsr.io/@nodef/extra-entries/doc/~/union
+[intersection]: https://jsr.io/@nodef/extra-entries/doc/~/intersection
+[difference]: https://jsr.io/@nodef/extra-entries/doc/~/difference
+[symmetricDifference]: https://jsr.io/@nodef/extra-entries/doc/~/symmetricDifference
+[randomValue]: https://jsr.io/@nodef/extra-entries/doc/~/randomValue
