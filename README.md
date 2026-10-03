@@ -2,7 +2,7 @@ A collection of functions for operating upon Entries.<br>
 
 ▌
 📦 [JSR](https://jsr.io/@nodef/extra-entries),
-📦 [NPM](https://www.npmjs.com/package/extra-entries),
+📦 [NPM](https://www.npmjs.com/package/@nodef/extra-entries),
 📰 [Docs](https://jsr.io/@nodef/extra-entries/doc).
 
 [Entries] is a list of key-value pairs, with unique keys. This package
